@@ -1,0 +1,272 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WC-Sermepa_payment_gateway v0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-26 17:57+0100\n"
+"PO-Revision-Date: 2012-12-26 18:04+0100\n"
+"Last-Translator: Jesús Ángel del Pozo <jesusangel.pozo@gmail.com>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: SPAIN\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:66
+#: wc_sermepa_payment_gateway.php:138
+#: wc_sermepa_payment_gateway.php:179
+msgid "Sermepa"
+msgstr "Sermepa"
+
+#: wc_sermepa_payment_gateway.php:139
+msgid "Sermepa works by sending the user to Sermepa to enter their payment information."
+msgstr "Sermepa funciona enviando al usuario a Sermepa para pagar."
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:150
+msgid "Gateway Disabled"
+msgstr "Pasarela desactivada"
+
+#: wc_sermepa_payment_gateway.php:150
+msgid "Sermepa does not support your store currency."
+msgstr "Sermepa no soporta la moneda de su tienda."
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:170
+msgid "Enable/Disable"
+msgstr "Activar/Desactivar"
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:172
+msgid "Enable Sermepa"
+msgstr "Activar Sermepa"
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:176
+msgid "Title"
+msgstr "Título"
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:178
+msgid "This controls the title which the user sees during checkout."
+msgstr "Esto controla el título que el usuario ve durante la finalización de la compra."
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:182
+msgid "Description"
+msgstr "Descripción"
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:184
+msgid "This controls the description which the user sees during checkout."
+msgstr "Ésto controla la descripción que los usuarios verán durante la finalización de la compra."
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:185
+msgid "Pay with your credit card via Sermepa"
+msgstr "Pagar con tarjeta de crédito mediante Sermepa"
+
+#: wc_sermepa_payment_gateway.php:188
+msgid "Commerce number (FUC)"
+msgstr "Número de comercio (FUC)"
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:190
+msgid "Please enter your Sermepa commerce number (FUC); this is needed in order to take payment."
+msgstr "Por favor, introduzca su número de comercio (FUC) de sermepa, esto es necesario con el fin de recibir el pago."
+
+#: wc_sermepa_payment_gateway.php:194
+msgid "Terminal number"
+msgstr "Número de terminal"
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:196
+msgid "Please enter your Sermepa terminal number; this is needed in order to take payment."
+msgstr "Por favor, introduzca su número de terminal de Sermepa, esto es necesario con el fin de recibir el pago."
+
+#: wc_sermepa_payment_gateway.php:200
+msgid "Currency identifier"
+msgstr "Identificador de moneda"
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:202
+msgid "Please enter your Sermepa currency identifier; this is needed in order to take payment."
+msgstr "Por favor, introduzca el identificador de moneda de su terminal, esto es necesario con el fin de recibir el pago."
+
+#: wc_sermepa_payment_gateway.php:207
+msgid "Secret key"
+msgstr "Clave secreta"
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:209
+msgid "Please enter your Sermepa secret key; this is needed in order to take payment."
+msgstr "Por favor, introduzca su clave secreta de Sermepa, esto es necesario con el fin de recibir el pago."
+
+#: wc_sermepa_payment_gateway.php:213
+msgid "Enable extended SHA1"
+msgstr "Activar SHA1 ampliado"
+
+#: wc_sermepa_payment_gateway.php:215
+msgid "Enable extended SHA1 algorithm."
+msgstr "Activar el algoritmo SHA1 ampliado."
+
+#: wc_sermepa_payment_gateway.php:219
+msgid "Invoice Prefix"
+msgstr "Prefijo de factura"
+
+#: wc_sermepa_payment_gateway.php:221
+msgid "Please enter a prefix for your invoice numbers. If you use your Sermepa account for multiple stores ensure this prefix is unqiue as Sermepa will not allow orders with the same invoice number."
+msgstr "Por favor, introduzca un prefijo para los números de las facturas. Si usa su cuenta Sermepa para varias tiendas, asegúrese de que el prefijo es único pues Sermepa no admite pedidos con el mismo número de factura."
+
+#: wc_sermepa_payment_gateway.php:225
+msgid "Submission method"
+msgstr "Método de envio"
+
+#: wc_sermepa_payment_gateway.php:227
+msgid "Use form submission method."
+msgstr "Usar envío mediante formulario."
+
+#: wc_sermepa_payment_gateway.php:228
+msgid "Enable this to post order data to Sermepa via a form instead of using a redirect/querystring."
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:232
+msgid "Page Style"
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:234
+msgid "Optionally enter the name of the page style you wish to use. These are defined within your Sermepa account."
+msgstr ""
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:238
+#, fuzzy
+msgid "Shipping options"
+msgstr "Detalles del envío"
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:243
+msgid "Shipping details"
+msgstr "Detalles del envío"
+
+#: wc_sermepa_payment_gateway.php:245
+msgid "Send shipping details to Sermepa instead of billing."
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:247
+msgid "Sermepa allows us to send 1 address. If you are using Sermepa for shipping labels you may prefer to send the shipping address rather than billing."
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:251
+msgid "Address override"
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:253
+msgid "Enable \"address_override\" to prevent address information from being changed."
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:254
+msgid "Sermepa verifies addresses therefore this setting can cause errors (we recommend keeping it disabled)."
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:258
+msgid "Gateway Testing"
+msgstr ""
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:263
+msgid "Sermepa sandbox"
+msgstr "Zona de pruebas de Sermepa"
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:265
+#, fuzzy
+msgid "Enable Sermepa sandbox"
+msgstr "Activar Sermepa"
+
+#: wc_sermepa_payment_gateway.php:267
+#, php-format
+msgid "Sermepa sandbox can be used to test payments. Sign up for a developer account <a href=\"%s\">here</a>."
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:270
+msgid "Debug Log"
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:272
+msgid "Enable logging"
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:274
+msgid "Log Sermepa events, inside <code>woocommerce/logs/sermepa.txt</code>"
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:381
+#, php-format
+msgid "Order %s"
+msgstr ""
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:392
+#: wc_sermepa_payment_gateway.php:429
+msgid "Shipping via"
+msgstr "Enviar mediante"
+
+#: wc_sermepa_payment_gateway.php:470
+msgid "Thank you for your order. We are now redirecting you to Sermepa to make payment."
+msgstr ""
+
+# @ wc_sermepa_payment_gateway
+#: wc_sermepa_payment_gateway.php:491
+msgid "Pay via Sermepa"
+msgstr "Pagar mediante Sermepa"
+
+#: wc_sermepa_payment_gateway.php:491
+msgid "Cancel order &amp; restore cart"
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:545
+msgid "Thank you for your order, please click the button below to pay with Sermepa."
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:695
+#, php-format
+msgid "Validation error: Sermepa amounts do not match (gross %s)."
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:713
+msgid "IPN payment completed"
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:724
+#: wc_sermepa_payment_gateway.php:732
+#: wc_sermepa_payment_gateway.php:750
+#, php-format
+msgid "Payment %s via IPN."
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:737
+#: wc_sermepa_payment_gateway.php:755
+msgid "Order refunded/reversed"
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:738
+#: wc_sermepa_payment_gateway.php:756
+#, php-format
+msgid "Order %s has been marked as refunded - Sermepa reason code: %s"
+msgstr ""
+
+#: wc_sermepa_payment_gateway.php:741
+#: wc_sermepa_payment_gateway.php:759
+#, php-format
+msgid "Payment for order %s refunded/reversed"
+msgstr ""
+
