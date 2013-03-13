@@ -1,5 +1,5 @@
 <?php
-/*  Copyright 2012  Jesús Ángel del Pozo Domínguez  (email : jesusangel.delpozo@gmail.com)
+/*  Copyright 2013  Jesús Ángel del Pozo Domínguez  (email : jesusangel.delpozo@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 3, as 
@@ -19,7 +19,7 @@
  * Plugin Name: WooCommerce sermepa payment gateway
  * Plugin URI: http://wcsermepa.abloque.com
  * Description: sermepa payment gateway for WooCommerce
- * Version: 0.1
+ * Version: 0.2
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
@@ -44,7 +44,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		 *
 		 * @class 		WC_Sermepa
 		 * @extends		WC_Payment_Gateway
-		 * @version		0.1
+		 * @version		0.2
 		 * @package		
 		 * @author 		Jesús Ángel del Pozo Domínguez
 		 */
@@ -63,9 +63,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		        $this->id			= 'sermepa';
 		        $this->icon 		= '/wp-content/plugins/' . dirname( plugin_basename( __FILE__ ) ) . '/assets/images/icons/sermepa.png'; 
 		        $this->has_fields 	= false;
-		        $this->liveurl 		= 'https://sis.sermepa.es/sis/realizarPago';
-				$this->testurl 		= 'https://sis-t.sermepa.es:25443/sis/realizarPago';
+		        $this->liveurl 		= 'https://sis.redsys.es/sis/realizarPago';
+				$this->testurl 		= 'https://sis-t.redsys.es:25443/sis/realizarPago';
 		        $this->method_title     = __( 'Sermepa', 'wc_sermepa_payment_gateway' );
+		        $this->method_description = __( 'Pay with credit card using RedSys (Sermepa)', 'wc_sermepa_payment_gateway' );
 	
 		        // Set up localisation
 	            $this->load_plugin_textdomain();
@@ -97,10 +98,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					$this->log = $woocommerce->logger();
 		
 				// Actions
-				add_action( 'init', array(&$this, 'check_notification') );
-				add_action('valid-sermepa-standard-notification', array(&$this, 'successful_request') );
-				add_action('woocommerce_receipt_sermepa', array(&$this, 'receipt_page'));
-				add_action('woocommerce_update_options_payment_gateways', array(&$this, 'process_admin_options'));
+				add_action( 'init', array( $this, 'check_notification' ) );
+				add_action('valid-sermepa-standard-notification', array( $this, 'successful_request' ) );
+				add_action('woocommerce_receipt_sermepa', array( $this, 'receipt_page' ) );
+				add_action('woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		
 				if ( !$this->is_valid_for_use() ) $this->enabled = false;
 		    }
@@ -385,7 +386,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					$digest = sha1( $string );
 				}
 				
-				$this->log->add('sermepa', sprintf( __( 'Digest calculation for %s is %s.', 'wc_sermepa_payment_gateway' ), $string, $digest ) );
+				if ( 'yes' == $this->debug )
+					$this->log->add('sermepa', sprintf( __( 'Digest calculation for %s is %s.', 'wc_sermepa_payment_gateway' ), $string, $digest ) );
 				
 				return $digest;
 			}
