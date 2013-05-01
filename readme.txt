@@ -25,7 +25,7 @@ Developers can checkout and contribute to the source code on the [WC Sermepa Git
 * WordPress 3.3 or greater
 * PHP version 5.2.4 or greater
 * MySQL version 5.0 or greater
-* WooCommerce 1.6.6 or greater
+* WooCommerce 2.0.5 or greater
 * Fsockopen support required
 
 = Automatic installation =
