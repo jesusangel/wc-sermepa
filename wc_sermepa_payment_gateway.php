@@ -89,7 +89,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$this->currency_id             = $this->settings['currency_id'];
 				$this->secret_key              = $this->settings['secret_key'];
 				$this->extended_sha1_algorithm = $this->settings['extended_sha1_algorithm'];
-				$this->form_submission_method  = ( isset( $this->settings['form_submission_method'] ) && $this->settings['form_submission_method'] == 'yes' ) ? true : false;
+				//$this->form_submission_method  = ( isset( $this->settings['form_submission_method'] ) && $this->settings['form_submission_method'] == 'yes' ) ? true : false;
 				$this->testmode                = $this->settings['testmode'];
 				$this->debug                   = $this->settings['debug'];			
 		
@@ -230,13 +230,13 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 									'description' => __( 'Enable extended SHA1 algorithm.', 'wc_sermepa_payment_gateway' ),
 									'default' => 'No'
 								),
-					'form_submission_method' => array(
-									'title' => __( 'Submission method', 'wc_sermepa_payment_gateway' ),
-									'type' => 'checkbox',
-									'label' => __( 'Use form submission method.', 'wc_sermepa_payment_gateway' ),
-									'description' => __( 'Enable this to post order data to Sermepa via a form instead of using a redirect/querystring.', 'wc_sermepa_payment_gateway' ),
-									'default' => 'no'
-								),
+//					'form_submission_method' => array(
+//									'title' => __( 'Submission method', 'wc_sermepa_payment_gateway' ),
+//									'type' => 'checkbox',
+//									'label' => __( 'Use form submission method.', 'wc_sermepa_payment_gateway' ),
+//									'description' => __( 'Enable this to post order data to Sermepa via a form instead of using a redirect/querystring.', 'wc_sermepa_payment_gateway' ),
+//									'default' => 'no'
+//								),
 					'testing' => array(
 									'title' => __( 'Gateway Testing', 'wc_sermepa_payment_gateway' ),
 									'type' => 'title',
@@ -462,6 +462,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		
 				$order = new WC_Order( $order_id );
 		
+				/*
 				if ( ! $this->form_submission_method ) {
 		
 					$sermepa_args = $this->get_sermepa_args( $order );
@@ -480,13 +481,15 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					);
 		
 				} else {
+				*/
 		
 					return array(
 						'result' 	=> 'success',
 						'redirect'	=> add_query_arg('order', $order->id, add_query_arg('key', $order->order_key, get_permalink(woocommerce_get_page_id('pay'))))
 					);
-		
+		/*
 				}
+				*/
 		
 			}
 		
