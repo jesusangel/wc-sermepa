@@ -82,7 +82,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$this->description             = $this->settings['description'];
 				$this->owner_name              = $this->settings['owner_name'];
 				$this->commerce_name           = $this->settings['commerce_name'];
-				$this->email                   = $this->settings['email'];
 				$this->testmode                = $this->settings['testmode'];
 				$this->commerce_number         = $this->settings['commerce_number'];
 				$this->terminal_number         = $this->settings['terminal_number'];
