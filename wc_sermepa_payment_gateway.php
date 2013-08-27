@@ -44,7 +44,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		 *
 		 * @class 		WC_Sermepa
 		 * @extends		WC_Payment_Gateway
-		 * @version		0.2
+		 * @version		0.3
 		 * @package		
 		 * @author 		Jesús Ángel del Pozo Domínguez
 		 */
