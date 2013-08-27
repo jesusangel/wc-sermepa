@@ -19,7 +19,7 @@
  * Plugin Name: WooCommerce sermepa payment gateway
  * Plugin URI: http://wcsermepa.abloque.com
  * Description: sermepa payment gateway for WooCommerce
- * Version: 0.2
+ * Version: 0.3
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
@@ -44,12 +44,14 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		 *
 		 * @class 		WC_Sermepa
 		 * @extends		WC_Payment_Gateway
-		 * @version		0.2
+		 * @version		0.3
 		 * @package		
 		 * @author 		Jesús Ángel del Pozo Domínguez
 		 */
 		   
 		class WC_Sermepa extends WC_Payment_Gateway {
+			
+			var $notify_url;
 		
 		    /**
 		     * Constructor for the gateway.
@@ -60,13 +62,14 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			public function __construct() {
 				global $woocommerce;
 		
-		        $this->id			= 'sermepa';
-		        $this->icon 		= '/wp-content/plugins/' . dirname( plugin_basename( __FILE__ ) ) . '/assets/images/icons/sermepa.png'; 
-		        $this->has_fields 	= false;
-		        $this->liveurl 		= 'https://sis.redsys.es/sis/realizarPago';
+				$this->id			= 'sermepa';
+				$this->icon 		= '/wp-content/plugins/' . dirname( plugin_basename( __FILE__ ) ) . '/assets/images/icons/sermepa.png'; 
+				$this->has_fields 	= false;
+				$this->liveurl 		= 'https://sis.redsys.es/sis/realizarPago';
 				$this->testurl 		= 'https://sis-t.redsys.es:25443/sis/realizarPago';
-		        $this->method_title     = __( 'Sermepa', 'wc_sermepa_payment_gateway' );
-		        $this->method_description = __( 'Pay with credit card using RedSys (Sermepa)', 'wc_sermepa_payment_gateway' );
+				$this->method_title     = __( 'Sermepa', 'wc_sermepa_payment_gateway' );
+				$this->method_description = __( 'Pay with credit card using RedSys (Sermepa)', 'wc_sermepa_payment_gateway' );
+				$this->notify_url   = str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Sermepa', home_url( '/' ) ) );
 	
 		        // Set up localisation
 	            $this->load_plugin_textdomain();
@@ -82,7 +85,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$this->description             = $this->settings['description'];
 				$this->owner_name              = $this->settings['owner_name'];
 				$this->commerce_name           = $this->settings['commerce_name'];
-				$this->email                   = $this->settings['email'];
 				$this->testmode                = $this->settings['testmode'];
 				$this->commerce_number         = $this->settings['commerce_number'];
 				$this->terminal_number         = $this->settings['terminal_number'];
@@ -98,10 +100,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					$this->log = $woocommerce->logger();
 		
 				// Actions
-				add_action( 'init', array( $this, 'check_notification' ) );
 				add_action('valid-sermepa-standard-notification', array( $this, 'successful_request' ) );
 				add_action('woocommerce_receipt_sermepa', array( $this, 'receipt_page' ) );
 				add_action('woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+				
+				// Payment listener/API hook
+				add_action( 'woocommerce_api_wc_sermepa', array( $this, 'check_notification' ) );
 		
 				if ( !$this->is_valid_for_use() ) $this->enabled = false;
 		    }
@@ -228,7 +232,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 									'title' => __( 'Enable extended SHA1', 'wc_sermepa_payment_gateway' ),
 									'type' => 'checkbox',
 									'description' => __( 'Enable extended SHA1 algorithm.', 'wc_sermepa_payment_gateway' ),
-									'default' => 'No'
+									'default' => 'Yes'
 								),
 //					'form_submission_method' => array(
 //									'title' => __( 'Submission method', 'wc_sermepa_payment_gateway' ),
@@ -274,7 +278,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$order_id = $order->id;
 		
 				if ( 'yes' == $this->debug )
-					$this->log->add( 'sermepa', 'Generating payment form for order #' . $order_id . '. Notify URL: ' . trailingslashit(home_url()));
+					$this->log->add( 'sermepa', 'Generating payment form for order #' . $order_id . '. Notify URL: ' . $this->notify_url );
 				
 				$importe = $order->get_total();
 				if ( $this->currency_id == 978 ) {
@@ -283,21 +287,21 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			
 				// Sermepa Args
 				$sermepa_args = array(
-					'Ds_Merchant_Amount'             => $importe,				// 12 / num
-					'Ds_Merchant_Currency'           => $this->currency_id,		// 4 / num
-					'Ds_Merchant_Order'              => str_pad($order_id, 4, '0', STR_PAD_LEFT),				// 12 / num{4}char{8}
-					'Ds_Merchant_MerchantCode'       => $this->commerce_number,	// FUC code 9 / num
-					'Ds_Merchant_Terminal'           => $this->terminal_number,	// 3 / num
-					'Ds_Merchant_TransactionType'    => 0,						// Autorización
-					'Ds_Merchant_Titular'            => $this->owner_name,				// Nombre y apellidos del titular 
-					'Ds_Merchant_MerchantName'       => $this->commerce_name,		// Optional, commerce name
-					'Ds_Merchant_MerchantURL'        => trailingslashit(home_url()),
+					'Ds_Merchant_Amount'             => $importe,									// 12 / num
+					'Ds_Merchant_Currency'           => $this->currency_id,							// 4 / num
+					'Ds_Merchant_Order'              => str_pad($order_id, 4, '0', STR_PAD_LEFT),	// 12 / num{4}char{8}
+					'Ds_Merchant_MerchantCode'       => $this->commerce_number,						// FUC code 9 / num
+					'Ds_Merchant_Terminal'           => $this->terminal_number,						// 3 / num
+					'Ds_Merchant_TransactionType'    => 0,											// Autorización
+					'Ds_Merchant_Titular'            => $this->owner_name,							// Nombre y apellidos del titular 
+					'Ds_Merchant_MerchantName'       => $this->commerce_name,						// Optional, commerce name
+					'Ds_Merchant_MerchantURL'        => $this->notify_url,							// http://docs.woothemes.com/document/wc_api-the-woocommerce-api-callback/
 					'Ds_Merchant_MerchantData'       => 'sermepaNotification',
 					'Ds_Merchant_ProductDescription' => __('Online order', 'wc_sermepa_payment_gateway'),
-					'Ds_Merchant_ConsumerLanguage'   => 0,					// Undefined
+					'Ds_Merchant_ConsumerLanguage'   => 0,											// Undefined
 					'Ds_Merchant_UrlOK'              => $this->get_return_url($order),
 					'Ds_Merchant_UrlKO'              => $order->get_cancel_order_url(),
-					'Ds_Merchant_PayMethods'         => 'T',						// T = credit card, R = bank transfer, D = Domiciliacion				
+					'Ds_Merchant_PayMethods'         => 'T',										// T = credit card, R = bank transfer, D = Domiciliacion				
 				);
 				
 				$sermepa_args['Ds_Merchant_MerchantSignature'] = $this->get_sermepa_digest( $sermepa_args );
