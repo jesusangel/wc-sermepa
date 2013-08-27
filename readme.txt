@@ -50,6 +50,10 @@ If on the off chance you do encounter issues with the shop/category pages after 
 
 == Frequently Asked Questions ==
 
+= Does this plugin work for WooCommerce 1.6? =
+
+Yes. There is a version suitable for WooCommerce 1.6. You can download it from GitHub (branch woocommerce_1.6) or from http://tel.abloque.com/sermepa_woocommerce.html
+
 = Where can I find WC-Sermepa documentation and user guides =
 
 TODO
