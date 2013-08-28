@@ -63,7 +63,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				global $woocommerce;
 		
 				$this->id			= 'sermepa';
-				$this->icon 		= '/wp-content/plugins/' . dirname( plugin_basename( __FILE__ ) ) . '/assets/images/icons/sermepa.png'; 
+				$this->icon 		= home_url() . '/wp-content/plugins/' . dirname( plugin_basename( __FILE__ ) ) . '/assets/images/icons/sermepa.png'; 
 				$this->has_fields 	= false;
 				$this->liveurl 		= 'https://sis.redsys.es/sis/realizarPago';
 				$this->testurl 		= 'https://sis-t.redsys.es:25443/sis/realizarPago';
