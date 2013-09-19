@@ -52,6 +52,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		class WC_Sermepa extends WC_Payment_Gateway {
 			
 			var $notify_url;
+			const merchant_data = 'sermepaNotification';
 		
 		    /**
 		     * Constructor for the gateway.
@@ -101,12 +102,13 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		
 				// Actions
 				add_action('valid-sermepa-standard-notification', array( $this, 'successful_request' ) );
+				// Check for gateway messages using WC 1.X format
+				add_action( 'init', array( $this, 'check_notification' ) );
+				// Payment listener/API hook (WC 2.X) 
+				add_action( 'woocommerce_api_wc_sermepa', array( $this, 'check_notification' ) );
 				add_action('woocommerce_receipt_sermepa', array( $this, 'receipt_page' ) );
 				add_action('woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-				
-				// Payment listener/API hook
-				add_action( 'woocommerce_api_wc_sermepa', array( $this, 'check_notification' ) );
-		
+						
 				if ( !$this->is_valid_for_use() ) $this->enabled = false;
 		    }
 		    
@@ -296,7 +298,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					'Ds_Merchant_Titular'            => $this->owner_name,							// Nombre y apellidos del titular 
 					'Ds_Merchant_MerchantName'       => $this->commerce_name,						// Optional, commerce name
 					'Ds_Merchant_MerchantURL'        => $this->notify_url,							// http://docs.woothemes.com/document/wc_api-the-woocommerce-api-callback/
-					'Ds_Merchant_MerchantData'       => 'sermepaNotification',
+					'Ds_Merchant_MerchantData'       => self::merchant_data,
 					'Ds_Merchant_ProductDescription' => __('Online order', 'wc_sermepa_payment_gateway'),
 					'Ds_Merchant_ConsumerLanguage'   => 0,											// Undefined
 					'Ds_Merchant_UrlOK'              => $this->get_return_url($order),
@@ -552,7 +554,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 */
 			function check_notification() {			
 		
-				if (isset($_POST['Ds_MerchantData']) && $_POST['Ds_MerchantData'] == 'sermepaNotification'):
+				if (isset($_POST['Ds_MerchantData']) && $_POST['Ds_MerchantData'] == self::merchant_data):
 		
 					@ob_clean();
 		
