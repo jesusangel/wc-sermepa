@@ -4,7 +4,7 @@ Tags: ecommerce, e-commerce, commerce, wordpress woocommerce, payment, plugin, g
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jesusangel.delpozo@gmail.com&item_name=Donation+for+WC-Sermepa
 Requires at least: 3.3
 Tested up to: 3.5
-Stable tag: 4
+Stable tag: 0.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
