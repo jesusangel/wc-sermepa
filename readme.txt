@@ -4,7 +4,7 @@ Tags: ecommerce, e-commerce, commerce, wordpress woocommerce, payment, plugin, g
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jesusangel.delpozo@gmail.com&item_name=Donation+for+WC-Sermepa
 Requires at least: 3.3
 Tested up to: 3.5
-Stable tag: 1
+Stable tag: 4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -25,7 +25,7 @@ Developers can checkout and contribute to the source code on the [WC Sermepa Git
 * WordPress 3.3 or greater
 * PHP version 5.2.4 or greater
 * MySQL version 5.0 or greater
-* WooCommerce 2.0.5 or greater
+* WooCommerce 1.6 or greater
 * Fsockopen support required
 
 = Automatic installation =
@@ -50,13 +50,17 @@ If on the off chance you do encounter issues with the shop/category pages after 
 
 == Frequently Asked Questions ==
 
+= Does this plugin work for WooCommerce 1.6? =
+
+Yes. Since stable tag 4, the plugin works on both WooCommerce 1.6 and 2.x versions. 
+
 = Where can I find WC-Sermepa documentation and user guides =
 
-TODO
+http://wordpress.org/support/plugin/woocommerce-sermepa-payment-gateway
 
 = Where can I request new features? =
 
-TODO
+http://wordpress.org/support/plugin/woocommerce-sermepa-payment-gateway
 
 = Where can I report bugs or contribute to the project? =
 
@@ -73,6 +77,9 @@ Yes you can! Join in on our [GitHub repository](http://github.com/jesusangel/wc-
 3. WooCommerce sales reports
 
 == Changelog ==
+
+= 1 - 26/09/2013
+* Updated to works on both WooCommerce 1.6 and 2.x or greater.
 
 = 0.1 - 26/12/2012 =
 * Initial version
