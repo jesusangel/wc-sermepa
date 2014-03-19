@@ -226,7 +226,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 									'title' => __( 'Currency identifier', 'wc_sermepa_payment_gateway' ),
 									'type' => 'select',
 									'description' => __( 'Please enter your Sermepa currency identifier; this is needed in order to take payment.', 'wc_sermepa_payment_gateway' ),
-									'options' => array('978' => 'EUR (Euro)', '840' => 'USD (US Dollar)', '826' => 'GBP (British Pound)', '392' => 'JPY (Japanesse Yen)'),
+									'options' => array('978' => 'EUR (Euro)', '840' => 'USD (US Dollar)', '826' => 'GBP (British Pound)', '392' => 'JPY (Japanesse Yen)', '170' => 'Peso Colombiano', '32' => 'Peso Argentino', '124' => 'Dólar Canadiense', '152' => 'Peso Chileno', '356' => 'Rupia India', '484' => 'Nuevo peso Mexicano', '604' => 'Nuevos soles', '756' => 'Franco Suizo', '986' => 'Real Brasileño', '937' => 'Bolívar fuerte', '949' => 'Lira Turca'),
 									'default' => '978'
 								),
 					'secret_key' => array(
