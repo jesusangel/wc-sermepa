@@ -78,7 +78,10 @@ Yes you can! Join in on our [GitHub repository](http://github.com/jesusangel/wc-
 
 == Changelog ==
 
-= 1 - 20/03/2014
+= 0.8 - 11/02/2015
+* Removed deprecated logger method call
+
+= 0.7 - 20/03/2014
 * Added more currencies
 * Added delay to redirect message
 
