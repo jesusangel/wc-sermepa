@@ -3,8 +3,8 @@ Contributors: jesusangel
 Tags: ecommerce, e-commerce, commerce, wordpress woocommerce, payment, plugin, gateway, servired, sermepa, redsys
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jesusangel.delpozo@gmail.com&item_name=Donation+for+WC-Sermepa
 Requires at least: 3.3
-Tested up to: 3.5
-Stable tag: 0.7
+Tested up to: 4.1
+Stable tag: 0.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,7 +78,7 @@ Yes you can! Join in on our [GitHub repository](http://github.com/jesusangel/wc-
 
 == Changelog ==
 
-= 0.7 - 20/03/2014
+= 1 - 20/03/2014
 * Added more currencies
 * Added delay to redirect message
 
