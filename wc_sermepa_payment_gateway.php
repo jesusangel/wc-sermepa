@@ -438,7 +438,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					$sermepa_args_array[] = '<input type="hidden" name="'.esc_attr( $key ).'" value="'.esc_attr( $value ).'" />';
 				}
 		
-				$woocommerce->add_inline_js('
+				$wc_enqueue_js('
 					jQuery("body").block({
 							message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ) ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />'.__('Thank you for your order. We are now redirecting you to Sermepa to make payment.', 'wc_sermepa_payment_gateway').'",
 							overlayCSS:
