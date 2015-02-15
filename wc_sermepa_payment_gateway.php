@@ -19,7 +19,7 @@
  * Plugin Name: WooCommerce sermepa payment gateway
  * Plugin URI: http://tel.abloque.com/sermepa_woocommerce.html
  * Description: sermepa payment gateway for WooCommerce
- * Version: 0.8
+ * Version: 0.9
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
