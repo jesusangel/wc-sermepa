@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WC-Redsys_payment_gateway v0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-31 16:25+0100\n"
-"PO-Revision-Date: 2015-10-31 16:33+0100\n"
+"POT-Creation-Date: 2015-11-02 16:20+0100\n"
+"PO-Revision-Date: 2015-11-02 16:21+0100\n"
 "Last-Translator: Jesús Ángel del Pozo <jesusangel.delpozo@gmail.com>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -20,226 +20,251 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 # @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:73
+#: wc_redsys_payment_gateway.php:71
 #, fuzzy
 msgid "Credit card (TPV Redsys)"
 msgstr "Pagar con tarjeta de crédito mediante Redsys"
 
-#: wc_sermepa_payment_gateway.php:74
+#: wc_redsys_payment_gateway.php:72
 #, fuzzy
 msgid "Pay with credit card using Redsys TPV"
 msgstr "Pagar con tarjeta de crédito usando RedSys (Redsys)"
 
 # @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:163
-#: wc_sermepa_payment_gateway.php:204
-#: wc_sermepa_payment_gateway.php:230
-#: wc_sermepa_payment_gateway.php:237
+#: wc_redsys_payment_gateway.php:160
+#: wc_redsys_payment_gateway.php:216
+#: wc_redsys_payment_gateway.php:242
+#: wc_redsys_payment_gateway.php:249
 msgid "Redsys"
 msgstr "Redsys"
 
-#: wc_sermepa_payment_gateway.php:164
+#: wc_redsys_payment_gateway.php:161
 msgid "Redsys works by sending the user to Redsys to enter their payment information."
 msgstr "Este plugin envia  al usuario a la pasarela de pago de Redsys para pagar."
 
 # @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:177
+#: wc_redsys_payment_gateway.php:174
 msgid "Gateway Disabled"
 msgstr "Pasarela desactivada"
 
-#: wc_sermepa_payment_gateway.php:177
+#: wc_redsys_payment_gateway.php:174
 msgid "Redsys does not support your store currency."
 msgstr "Redsys no soporta la moneda de su tienda."
 
 # @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:194
+#: wc_redsys_payment_gateway.php:191
 msgid "Enable/Disable"
 msgstr "Activar/Desactivar"
 
+#: wc_redsys_payment_gateway.php:193
+msgid "Choose mode."
+msgstr "Escoje el modo de funcionamiento del TPV"
+
 # @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:196
+#: wc_redsys_payment_gateway.php:194
+#: wc_redsys_payment_gateway.php:200
 msgid "Enable Redsys"
 msgstr "Activar Redsys"
 
+#: wc_redsys_payment_gateway.php:198
+msgid "Mode"
+msgstr "Modo de funcionamiento"
+
+#: wc_redsys_payment_gateway.php:202
+msgid "Production"
+msgstr "Producción"
+
+#: wc_redsys_payment_gateway.php:203
+msgid "Test sis-t"
+msgstr "Pruebas con el entorno sis-t"
+
+#: wc_redsys_payment_gateway.php:204
+msgid "Test sis-d"
+msgstr "Pruebas con el entorno sis-d"
+
+#: wc_redsys_payment_gateway.php:205
+msgid "Test sis-i"
+msgstr "Pruebas con el entorno sis-i"
+
+#: wc_redsys_payment_gateway.php:208
+msgid "TVP mode: production or test"
+msgstr "Modo de funcionamiento del TPV: producción o pruebas (sis-t, sis-d o sis-i)"
+
 # @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:200
+#: wc_redsys_payment_gateway.php:212
 msgid "Title"
 msgstr "Título"
 
 # @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:202
+#: wc_redsys_payment_gateway.php:214
 msgid "This controls the title which the user sees during checkout."
 msgstr "Esto controla el título que el usuario ve durante la finalización de la compra."
 
 # @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:207
+#: wc_redsys_payment_gateway.php:219
 msgid "Description"
 msgstr "Descripción"
 
 # @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:209
+#: wc_redsys_payment_gateway.php:221
 msgid "This controls the description which the user sees during checkout."
 msgstr "Ésto controla la descripción que los usuarios verán durante la finalización de la compra."
 
-#: wc_sermepa_payment_gateway.php:211
+#: wc_redsys_payment_gateway.php:223
 msgid "Payment gateway with Redsys credit card."
 msgstr "Pago con tarjeta mediante pasarela de pago (Redsys)"
 
-#: wc_sermepa_payment_gateway.php:214
+#: wc_redsys_payment_gateway.php:226
 msgid "Allowed payment methods"
 msgstr "Métodos de pago aceptados"
 
-#: wc_sermepa_payment_gateway.php:216
+#: wc_redsys_payment_gateway.php:228
 msgid "Allowed payment methods."
 msgstr "Métodos de pago aceptados."
 
-#: wc_sermepa_payment_gateway.php:219
+#: wc_redsys_payment_gateway.php:231
 msgid "All"
 msgstr "Todos"
 
-#: wc_sermepa_payment_gateway.php:220
+#: wc_redsys_payment_gateway.php:232
 msgid "Only credit card"
 msgstr "Sólo tarjeta"
 
-#: wc_sermepa_payment_gateway.php:221
+#: wc_redsys_payment_gateway.php:233
 msgid "Credit card and Iupay"
 msgstr "Tarjeta y Iupay"
 
-#: wc_sermepa_payment_gateway.php:226
+#: wc_redsys_payment_gateway.php:238
 msgid "Owner name"
 msgstr "Nombre del comercio"
 
-#: wc_sermepa_payment_gateway.php:228
+#: wc_redsys_payment_gateway.php:240
 msgid "Name and surname of the owner."
 msgstr "Nombre y apellidos del propietario"
 
-#: wc_sermepa_payment_gateway.php:233
+#: wc_redsys_payment_gateway.php:245
 #, fuzzy
 msgid "Commerce name"
 msgstr "Número de comercio (FUC)"
 
-#: wc_sermepa_payment_gateway.php:235
+#: wc_redsys_payment_gateway.php:247
 msgid "The commerce name."
 msgstr "Número de comercio (FUC)"
 
-#: wc_sermepa_payment_gateway.php:240
+#: wc_redsys_payment_gateway.php:252
 msgid "Commerce number (FUC)"
 msgstr "Número de comercio (FUC)"
 
 # @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:242
+#: wc_redsys_payment_gateway.php:254
 msgid "Please enter your Redsys commerce number (FUC); this is needed in order to take payment."
 msgstr "Por favor, introduzca su número de comercio (FUC) de redsys, esto es necesario con el fin de recibir el pago."
 
-#: wc_sermepa_payment_gateway.php:247
+#: wc_redsys_payment_gateway.php:259
 msgid "Terminal number"
 msgstr "Número de terminal"
 
 # @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:249
+#: wc_redsys_payment_gateway.php:261
 msgid "Please enter your Redsys terminal number; this is needed in order to take payment."
 msgstr "Por favor, introduzca su número de terminal de Redsys, esto es necesario con el fin de recibir el pago."
 
-#: wc_sermepa_payment_gateway.php:254
+#: wc_redsys_payment_gateway.php:266
 msgid "Currency identifier"
 msgstr "Identificador de moneda"
 
 # @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:256
+#: wc_redsys_payment_gateway.php:268
 msgid "Please enter your Redsys currency identifier; this is needed in order to take payment."
 msgstr "Por favor, introduzca el identificador de moneda de su terminal, esto es necesario con el fin de recibir el pago."
 
-#: wc_sermepa_payment_gateway.php:278
+#: wc_redsys_payment_gateway.php:290
 #, fuzzy
 msgid "Secret key (SHA-256)"
 msgstr "Clave secreta"
 
 # @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:280
+#: wc_redsys_payment_gateway.php:292
 #, fuzzy
 msgid "Please enter your secret key; this is needed in order to take payment."
 msgstr "Por favor, introduzca su clave secreta de Redsys, esto es necesario con el fin de recibir el pago."
 
 # @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:284
+#: wc_redsys_payment_gateway.php:296
 #, fuzzy
 msgid "Enable languages"
 msgstr "Activar Redsys"
 
-#: wc_sermepa_payment_gateway.php:286
+#: wc_redsys_payment_gateway.php:298
 msgid "Shows TPV with customer's language."
 msgstr "Mostrar TPV con el idioma del cliente."
 
-#: wc_sermepa_payment_gateway.php:290
+#: wc_redsys_payment_gateway.php:302
 msgid "Gateway Testing"
 msgstr "Modo de pruebas"
 
-# @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:295
-msgid "Redsys sandbox"
-msgstr "Zona de pruebas de Redsys"
-
-# @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:297
-#, fuzzy
-msgid "Enable Redsys sandbox"
-msgstr "Activar Redsys"
-
-#: wc_sermepa_payment_gateway.php:299
-msgid "Redsys sandbox can be used to test payments."
-msgstr "El entorno de pruebas de Rebsys sirve para probar los pagos."
-
-#: wc_sermepa_payment_gateway.php:302
+#: wc_redsys_payment_gateway.php:307
 msgid "Debug Log"
 msgstr "Registro de depración"
 
-#: wc_sermepa_payment_gateway.php:304
+#: wc_redsys_payment_gateway.php:309
 msgid "Enable logging"
 msgstr "Activar registro"
 
-#: wc_sermepa_payment_gateway.php:306
+#: wc_redsys_payment_gateway.php:311
 msgid "Log Redsys events, inside <code>woocommerce/logs/redsys.txt</code>"
 msgstr "Registra los eventos del plugin"
 
-#: wc_sermepa_payment_gateway.php:452
+#: wc_redsys_payment_gateway.php:467
 msgid "Thank you for your order. We are now redirecting you to Redsys to make payment."
 msgstr "Gracias por su pedido. Ahora accederá a la pasarela para hacer el pago."
 
 # @ wc_redsys_payment_gateway
-#: wc_sermepa_payment_gateway.php:473
+#: wc_redsys_payment_gateway.php:488
 msgid "Pay via Redsys"
 msgstr "Pagar mediante Redsys"
 
-#: wc_sermepa_payment_gateway.php:474
+#: wc_redsys_payment_gateway.php:489
 msgid "Cancel order &amp; restore cart"
 msgstr "Cancelar el pedido"
 
-#: wc_sermepa_payment_gateway.php:504
+#: wc_redsys_payment_gateway.php:519
 msgid "Thank you for your order, please click the button below to pay with Redsys."
 msgstr "Gracias por su pedido. Por favor, pulse sobre el botón para pagar."
 
-#: wc_sermepa_payment_gateway.php:597
+#: wc_redsys_payment_gateway.php:612
 #, php-format
 msgid "Validation error: Redsys amounts do not match (amount %s)."
 msgstr "Error de validación: los importes no coinciden (total %s)."
 
-#: wc_sermepa_payment_gateway.php:617
+#: wc_redsys_payment_gateway.php:632
 msgid "Redsys payment completed"
 msgstr "Pago completado"
 
-#: wc_sermepa_payment_gateway.php:624
-#: wc_sermepa_payment_gateway.php:656
+#: wc_redsys_payment_gateway.php:639
+#: wc_redsys_payment_gateway.php:671
 #, php-format
 msgid "Payment error: code: %s."
 msgstr "Error en el pago: código %s."
 
-#: wc_sermepa_payment_gateway.php:650
+#: wc_redsys_payment_gateway.php:665
 msgid "Payment error: bank unavailable."
 msgstr "Error en el pago: banco no disponible."
 
-#: wc_sermepa_payment_gateway.php:666
+#: wc_redsys_payment_gateway.php:681
 msgid "Awaiting REDSYS payment"
 msgstr "Esperando pago con tarjeta"
+
+# @ wc_redsys_payment_gateway
+#~ msgid "Redsys sandbox"
+#~ msgstr "Zona de pruebas de Redsys"
+# @ wc_redsys_payment_gateway
+#, fuzzy
+#~ msgid "Enable Redsys sandbox"
+#~ msgstr "Activar Redsys"
+
+#~ msgid "Redsys sandbox can be used to test payments."
+#~ msgstr "El entorno de pruebas de Rebsys sirve para probar los pagos."
 
 #~ msgid "Enable extended SHA1"
 #~ msgstr "Activar SHA1 ampliado"

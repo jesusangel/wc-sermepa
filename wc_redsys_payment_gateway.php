@@ -68,8 +68,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$this->id			= 'myredsys';
 				$this->icon 		= home_url() . '/wp-content/plugins/' . dirname( plugin_basename( __FILE__ ) ) . '/assets/images/icons/redsys.png';
 				$this->has_fields 	= false;
-				$this->liveurl 		= 'https://sis.redsys.es/sis/realizarPago';
-				$this->testurl 		= 'https://sis-t.redsys.es:25443/sis/realizarPago';
 				$this->method_title     = __( 'Credit card (TPV Redsys)', 'wc_redsys_payment_gateway' );
 				$this->method_description = __( 'Pay with credit card using Redsys TPV', 'wc_redsys_payment_gateway' );
 				$this->notify_url   = str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_MyRedsys', home_url( '/' ) ) );
@@ -84,19 +82,18 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$this->init_settings();
 		
 				// Define user set variables
-				$this->title                   = $this->settings['title'];
-				$this->description             = $this->settings['description'];
-				$this->owner_name              = $this->settings['owner_name'];
-				$this->commerce_name           = $this->settings['commerce_name'];
-				$this->testmode                = $this->settings['testmode'];
-				$this->commerce_number         = $this->settings['commerce_number'];
-				$this->terminal_number         = $this->settings['terminal_number'];
-				$this->currency_id             = $this->settings['currency_id'];
-				$this->secret_key              = $this->settings['secret_key'];
-				$this->payment_method          = $this->settings['payment_method'];
-				$this->language                = $this->settings['language'];
-				$this->testmode                = $this->settings['testmode'];
-				$this->debug                   = $this->settings['debug'];			
+				$this->title			= $this->settings['title'];
+				$this->description		= $this->settings['description'];
+				$this->owner_name		= $this->settings['owner_name'];
+				$this->commerce_name	= $this->settings['commerce_name'];
+				$this->mode				= $this->settings['mode'];
+				$this->commerce_number	= $this->settings['commerce_number'];
+				$this->terminal_number	= $this->settings['terminal_number'];
+				$this->currency_id		= $this->settings['currency_id'];
+				$this->secret_key		= $this->settings['secret_key'];
+				$this->payment_method	= $this->settings['payment_method'];
+				$this->language			= $this->settings['language'];
+				$this->debug			= $this->settings['debug'];			
 		
 				// Logs
 				if ( 'yes' == $this->debug ) {
@@ -193,9 +190,24 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					'enabled' => array(
 						'title' => __( 'Enable/Disable', 'wc_redsys_payment_gateway' ),
 						'type' => 'checkbox',
+						'description' => __( 'Choose mode.', 'wc_redsys_payment_gateway' ),
 						'label' => __( 'Enable Redsys', 'wc_redsys_payment_gateway' ),
 						'default' => 'yes'
 					),
+	    			'mode' => array(
+	    					'title' => __( 'Mode', 'wc_redsys_payment_gateway' ),
+	    					'type' => 'select',
+	    					'label' => __( 'Mode', 'wc_redsys_payment_gateway' ),
+	    					'options'     => array(
+	    							'P' => __( 'Production', 'wc_redsys_payment_gateway' ),
+	    							'T' => __( 'Test sis-t', 'wc_redsys_payment_gateway' ),
+	    							'D' => __( 'Test sis-d', 'wc_redsys_payment_gateway' ),
+	    							'I' => __( 'Test sis-i', 'wc_redsys_payment_gateway' ),
+	    							
+	    					),
+	    					'description' => __( 'TVP mode: production or test'),
+	    					'default'     => 'T'
+	    			),
 					'title' => array(
 						'title' => __( 'Title', 'wc_redsys_payment_gateway' ),
 						'type' => 'text',
@@ -291,13 +303,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 						'type' => 'title',
 						'description' => '',
 					),
-					'testmode' => array(
-						'title' => __( 'Redsys sandbox', 'wc_redsys_payment_gateway' ),
-						'type' => 'checkbox',
-						'label' => __( 'Enable Redsys sandbox', 'wc_redsys_payment_gateway' ),
-						'default' => 'yes',
-						'description' => sprintf( __( 'Redsys sandbox can be used to test payments.', 'wc_redsys_payment_gateway' ) ),
-					),
 					'debug' => array(
 						'title' => __( 'Debug Log', 'wc_redsys_payment_gateway' ),
 						'type' => 'checkbox',
@@ -328,7 +333,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$cart_contents = WC()->cart->cart_contents;
 				$products = '';
 				foreach ( $cart_contents as $cart_content ) {
-					$products .= $cart_content['quantity'] . 'x' . $cart_content['data']->post->post_title.'||';
+					if ( !empty( $products ) ) {
+						$separator = '/';
+					} else {
+						$separator = '';
+					}
+					$products .= $separator . $cart_content['quantity'] . 'x' . $cart_content['data']->post->post_title;
 				}
 				
 				$importe = $order->get_total();
@@ -429,11 +439,21 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		
 				$order = new WC_Order( $order_id );
 		
-				if ( $this->testmode == 'yes' ):
-					$redsys_adr = $this->testurl . '?test=1&';
-				else :
-					$redsys_adr = $this->liveurl . '?';
-				endif;
+				switch ( $this->mode ) {
+					case 'T' :
+						$redsys_addr = 'https://sis-t.redsys.es:25443/sis/realizarPago/utf-8';
+					break;
+					case 'D':
+						$redsys_addr = 'http://sis-d.redsys.es/sis/realizarPago/utf-8';
+					break;
+					case 'I':
+						$redsys_addr = 'https://sis-i.redsys.es:25443/sis/realizarPago/utf-8';
+					break;
+					case 'P':
+					default:
+						$redsys_addr = 'https://sis.redsys.es/sis/realizarPago/utf-8';
+					break;	
+				}
 		
 				$redsys_args = $this->get_redsys_args( $order );
 				
@@ -468,7 +488,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					setTimeout(function () { jQuery("#submit_redsys_payment_form").click(); }, 5000);
 				');
 		
-				return '<form action="'.esc_url( $redsys_adr ).'" method="post" id="redsys_payment_form" target="_top">
+				return '<form action="'.esc_url( $redsys_addr ).'" method="post" id="redsys_payment_form" target="_top">
 						' . implode('', $redsys_fields_array) . '
 						<input type="submit" class="button-alt" id="submit_redsys_payment_form" value="'.__('Pay via Redsys', 'wc_redsys_payment_gateway').'" /> 
 						<a class="button cancel" href="'.esc_url( $order->get_cancel_order_url() ).'">'.__('Cancel order &amp; restore cart', 'wc_redsys_payment_gateway').'</a>
@@ -544,23 +564,29 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				        $encoded_data		= $_POST['Ds_MerchantParameters'];
 				        
 				        $data = base64_decode( strtr( $encoded_data, '-_', '+/' ) );
+				        if ( version_compare( PHP_VERSION, '5.2.0' ) < 0 ) {
+				        	$json_service = new Services_JSON();
+				        	$data = $json_service->decode( $data );
+				        } else {
+				        	$data = json_decode( $data, true); //(PHP 5 >= 5.2.0)
+				        }
 				        
 				        $calculated_signature = $this->generateResponseSignature( $this->secret_key, $encoded_data );
 				        
-				        $amount		= $data['Ds_Amount'];
-				        $order_id	= $data('Ds_Order');
-				        $fuc		= $data('Ds_MerchantCode');
-				        $currency	= $data('Ds_Currency');
-				        $response	= $data('Ds_Response');
-				        $auth_code	= $data('Ds_AuthorisationCode');
+				        $received_amount	= $data['Ds_Amount'];
+				        $order_id	= substr( $data['Ds_Order'], 0, 8 );
+				        $fuc		= $data['Ds_MerchantCode'];
+				        $currency	= $data['Ds_Currency'];
+				        $response	= $data['Ds_Response'];
+				        $auth_code	= $data['Ds_AuthorisationCode'];
 				        
 				        // check to see if the response is valid
 				        if ( $received_signature === $calculated_signature
-				        					&& checkResponse( $response )
-				        					&& checkAmount( $amount )
-				        					&& checkOrderId( $order_id )
-											&& checkCurrency( $currency )
-											&& checkFuc( $fuc )
+				        					&& $this->checkResponse( $response )
+				        					&& $this->checkAmount( $received_amount )
+				        					&& $this->checkOrderId( $order_id )
+											&& $this->checkCurrency( $currency )
+											&& $this->checkFuc( $fuc )
 						) {
 				            if ( 'yes' == $this->debug ) {
 				            	$this->log->add( 'redsys', 'Received valid notification from Redsys. Payment status: ' . $response );
@@ -570,7 +596,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				      
 					        // We are here so lets check status and do actions
 					        $response = (int) $response;
-					        if ( $response < 101 && checkAuthorisationCode( $auth_code ) ) {	// Completed
+					        if ( $response < 101 && $this->checkAuthorisationCode( $auth_code ) ) {	// Completed
 				
 					            	// Check order not already completed
 					            	if ( $order->status == 'completed' ) {
@@ -584,7 +610,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					            	// Validate Amount
 					            	$order_amount = $order->get_total(); 
 									if ( $this->currency_id == 978 ) {
-										$amount = $amount / 100;	// For Euros, redsys assumes that last two digits are decimals
+										$received_amount = $received_amount / 100;	// For Euros, redsys assumes that last two digits are decimals
 									}
 																
 								    if ( $order_amount != $received_amount ) {
@@ -594,7 +620,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 								    	}
 								    
 								    	// Put this order on-hold for manual checking
-								    	$order->update_status( 'on-hold', sprintf( __( 'Validation error: Redsys amounts do not match (amount %s).', 'wc_redsys_payment_gateway' ), $posted['Ds_Amount'] ) );
+								    	$order->update_status( 'on-hold', sprintf( __( 'Validation error: Redsys amounts do not match (amount %s).', 'wc_redsys_payment_gateway' ), $received_amount ) );
 								    	
 								    	wp_die();
 								    }
@@ -617,8 +643,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					                $order->add_order_note( __('Redsys payment completed', 'wc_redsys_payment_gateway') );
 					                $order->payment_complete();
 				
-					                if ( 'yes' == $this->debug )
+					                if ( 'yes' == $this->debug ) {
 					                	$this->log->add( 'redsys', 'Payment complete.' );
+					                }
 					        } else if ( $response >= 101 && $response <= 202 ) {
 								// Order failed
 								$message = sprintf( __('Payment error: code: %s.', 'wc_redsys_payment_gateway'), $response);
@@ -706,7 +733,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			function generateResponseSignature( $key, $b64_data ) {
 				$key = base64_decode( $key );
 				$data_string = base64_decode( strtr( $b64_data, '-_', '+/' ) );
-				if ( version_compare( PHP_VERSION, '5.0.2' ) < 0 ) {
+				if ( version_compare( PHP_VERSION, '5.2.0' ) < 0 ) {
 					$json_service = new Services_JSON();
 					$data = $json_service->decode( $data_string );
 				} else {
@@ -785,7 +812,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			}
 			
 			function checkResponse( $response ) {
-				return preg_match("/^\d{1,4}$/", $respuesta);
+				return preg_match("/^\d{1,4}$/", $response);
 			}
 			
 			function checkAuthorisationCode( $auth_code ) {
