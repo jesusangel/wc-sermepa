@@ -385,22 +385,22 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			
 				// TPV data
 				$tpv_data = array(
-					'Ds_Merchant_Amount'             => $importe,							// 12 / num
-					'Ds_Merchant_Currency'           => $this->currency_id,					// 4 / num
-					'Ds_Merchant_Order'              => $unique_order_id,					// 12 / num{4}char{8}
-					'Ds_Merchant_MerchantCode'       => $this->commerce_number,				// FUC code 9 / num
-					'Ds_Merchant_Terminal'           => $this->terminal_number,				// 3 / num
-					'Ds_Merchant_TransactionType'    => 0,									// Autorización
-					'Ds_Merchant_Titular'            => $this->owner_name,					// Nombre y apellidos del titular 
-					'Ds_Merchant_MerchantName'       => $this->commerce_name,				// Optional, commerce name
-					'Ds_Merchant_MerchantURL'        => $this->notify_url,					// http://docs.woothemes.com/document/wc_api-the-woocommerce-api-callback/
-					'Ds_Merchant_MerchantData'       => sha1( $this->notify_url ),
-					'Ds_Merchant_ProductDescription' => $products,
+					'DS_MERCHANT_AMOUNT'             => $importe,							// 12 / num
+					'DS_MERCHANT_ORDER'              => $unique_order_id,					// 12 / num{4}char{8}
+					'DS_MERCHANT_MERCHANTCODE'       => $this->commerce_number,				// FUC code 9 / num
+					'DS_MERCHANT_CURRENCY'           => $this->currency_id,					// 4 / num
+					'DS_MERCHANT_TRANSACTIONTYPE'    => "0",								// Autorización
+					'DS_MERCHANT_TERMINAL'           => $this->terminal_number,				// 3 / num
+					'DS_MERCHANT_MERCHANTURL'        => $this->notify_url,					// http://docs.woothemes.com/document/wc_api-the-woocommerce-api-callback/
+					'DS_MERCHANT_URLOK'              => $this->get_return_url($order),
+					'DS_MERCHANT_URLKO'              => $order->get_cancel_order_url(),
 					'Ds_Merchant_ConsumerLanguage'   => $language,
-					'Ds_Merchant_UrlOK'              => $this->get_return_url($order),
-					'Ds_Merchant_UrlKO'              => $order->get_cancel_order_url(),
+					'Ds_Merchant_ProductDescription' => $products,
+					'Ds_Merchant_Titular'            => $this->owner_name,					// Nombre y apellidos del titular
+					'Ds_Merchant_MerchantData'       => sha1( $this->notify_url ),
+					'Ds_Merchant_MerchantName'       => $this->commerce_name,				// Optional, commerce name
 					'Ds_Merchant_PayMethods'         => $this->payment_method,				// T = credit card and iUpay, C = only credit card
-					'DS_Merchant_Module'             => 'woocommerce'				
+					'Ds_Merchant_Module'             => 'woocommerce'				
 				);
 				
 				$tpv_data_encoded = $this->encodeMerchantData( $tpv_data );
