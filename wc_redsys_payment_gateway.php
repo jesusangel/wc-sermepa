@@ -19,7 +19,7 @@
  * Plugin Name: WooCommerce Redsys payment gateway
  * Plugin URI: http://tel.abloque.com/sermepa_woocommerce.html
  * Description: Redsys payment gateway for WooCommerce
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
@@ -37,6 +37,64 @@ require_once('libs/sha256.php');
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 
 	add_action('plugins_loaded', 'init_wc_myredsys_payment_gateway', 0);
+	
+	/*
+	register_activation_hook ( __FILE__, 'wc_myredsys_payment_gateway_activation' );
+	function wc_myredsys_payment_gateway_activation() {
+		$notices = get_option ( 'wc_myredsys_payment_gateway_deferred_admin_notices', array () );
+		$notices [] = $message = sprintf( __( 'Please, get a new SHA256 key from your TPV and enter it in the plugin configuration. | <a href="%1$s">Hide Notice</a>', 'wc_redsys_payment_gateway' ), '?ignore_redsys_sha256_notice=0');
+		update_option( 'wc_myredsys_payment_gateway_deferred_admin_notices', $notices );
+	}
+	
+	add_action ( 'admin_init', 'wc_myredsys_payment_gateway_admin_init' );
+	function wc_myredsys_payment_gateway_admin_init() {
+		$current_version = '1.0.2';
+		$version = get_option ( 'wc_myredsys_payment_gateway_version' );
+		if ( version_compare( $version, $current_version ) < 0 ) {
+			// Do whatever upgrades needed here.
+			update_option ( 'wc_myredsys_payment_gateway_version', $current_version );
+			$notices = get_option ( 'wc_myredsys_payment_gateway_deferred_admin_notices', array () );
+			$notices [] = "My Plugin: Upgraded version $version to $current_version.";
+			update_option ( 'wc_myredsys_payment_gateway_deferred_admin_notices', $notices );
+		}
+	}
+	
+	add_action ( 'admin_notices', 'wc_myredsys_payment_gateway_admin_notices' );
+	function wc_myredsys_payment_gateway_admin_notices() {
+		if ($notices = get_option ( 'wc_myredsys_payment_gateway_deferred_admin_notices' )) {
+			foreach ( $notices as $notice ) {
+				echo "<div class='updated'><p>$notice</p></div>";
+			}
+			delete_option ( 'wc_myredsys_payment_gateway_deferred_admin_notices' );
+		}
+	}
+	
+	register_deactivation_hook ( __FILE__, 'wc_myredsys_payment_gateway_deactivation' );
+	function wc_myredsys_payment_gateway_deactivation() {
+		delete_option ( 'wc_myredsys_payment_gateway_version' );
+		delete_option ( 'wc_myredsys_payment_gateway_deferred_admin_notices' );
+	}*/
+	
+	add_action( 'admin_notices', 'wc_myredsys_payment_gateway_admin_notice' );
+	function wc_myredsys_payment_gateway_admin_notice() {
+		global $current_user;
+		$user_id = $current_user->ID;
+		
+		if (! get_user_meta ( $user_id, 'ignore_redsys_sha256_notice' )) {
+			$class = "updated";
+			$message = sprintf ( __ ( 'Please, get a new SHA256 key from your TPV and enter it in the plugin configuration. | <a href="%1$s">Hide Notice</a>', 'wc_redsys_payment_gateway' ), '?ignore_redsys_sha256_notice=0' );
+			echo "<div class=\"$class\"> <p>$message</p></div>";
+		}
+	}
+	
+	add_action( 'admin_init', 'wc_myredsys_payment_gateway_ignore_notice' );
+	function wc_myredsys_payment_gateway_ignore_notice() {
+		global $current_user;
+		$user_id = $current_user->ID;
+		if (isset ( $_GET ['ignore_redsys_sha256_notice'] ) && '0' == $_GET ['ignore_redsys_sha256_notice']) {
+			add_user_meta ( $user_id, 'ignore_redsys_sha256_notice', 'true', true );
+		}
+	}
 	
 	function init_wc_myredsys_payment_gateway() {
 	 
@@ -115,9 +173,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					add_action('woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 				}
 				add_action( 'woocommerce_receipt_myredsys', array( $this, 'receipt_page' ) );
-				add_action( 'admin_notices', array( $this, 'admin_notice' ) );
-				add_action('admin_init', array( $this, 'ignore_notice' ) );
-				
 						
 				if ( !$this->is_valid_for_use() ) $this->enabled = false;
 		    }
@@ -709,25 +764,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				}
 			}
 			
-			function admin_notice() {
-				global $current_user ;
-				$user_id = $current_user->ID;
-				
-				if ( ! get_user_meta($user_id, 'ignore_redsys_sha256_notice') ) {
-					$class = "updated";
-					$message = sprintf( __( 'Please, get a new SHA256 key from your TPV and enter it in the plugin configuration. | <a href="%1$s">Hide Notice</a>', 'wc_redsys_payment_gateway' ), '?ignore_redsys_sha256_notice=0');
-					echo "<div class=\"$class\"> <p>$message</p></div>";
-				}
-			}
-			
-			function ignore_notice() {
-				global $current_user;
-				$user_id = $current_user->ID;
-				if ( isset($_GET['ignore_redsys_sha256_notice']) && '0' == $_GET['ignore_redsys_sha256_notice'] ) {
-					add_user_meta($user_id, 'ignore_redsys_sha256_notice', 'true', true);
-				}
-			}
-
 			/**
 			 * Converts array to JSON and encodes string to base64
 			 *
