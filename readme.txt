@@ -4,7 +4,7 @@ Tags: ecommerce, e-commerce, commerce, wordpress woocommerce, payment, plugin, g
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jesusangel.delpozo@gmail.com&item_name=Donation+for+WC-Sermepa
 Requires at least: 3.3
 Tested up to: 4.1
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -77,6 +77,9 @@ Yes you can! Join in on our [GitHub repository](http://github.com/jesusangel/wc-
 3. WooCommerce sales reports
 
 == Changelog ==
+
+= 1.0.1 - 04/11/2015
+* Added notice to remember user must get a new SHA256 key
 
 = 1.0.0 - 31/10/2015
 * Added SHA256 signature

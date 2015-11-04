@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WC-Redsys_payment_gateway v0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-02 16:20+0100\n"
-"PO-Revision-Date: 2015-11-02 16:21+0100\n"
+"POT-Creation-Date: 2015-11-04 21:34+0100\n"
+"PO-Revision-Date: 2015-11-04 21:36+0100\n"
 "Last-Translator: Jesús Ángel del Pozo <jesusangel.delpozo@gmail.com>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -31,229 +31,238 @@ msgid "Pay with credit card using Redsys TPV"
 msgstr "Pagar con tarjeta de crédito usando RedSys (Redsys)"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:160
-#: wc_redsys_payment_gateway.php:216
-#: wc_redsys_payment_gateway.php:242
-#: wc_redsys_payment_gateway.php:249
+#: wc_redsys_payment_gateway.php:162
+#: wc_redsys_payment_gateway.php:219
+#: wc_redsys_payment_gateway.php:245
+#: wc_redsys_payment_gateway.php:252
 msgid "Redsys"
 msgstr "Redsys"
 
-#: wc_redsys_payment_gateway.php:161
+#: wc_redsys_payment_gateway.php:163
 msgid "Redsys works by sending the user to Redsys to enter their payment information."
 msgstr "Este plugin envia  al usuario a la pasarela de pago de Redsys para pagar."
 
+#: wc_redsys_payment_gateway.php:164
+msgid "You'll find previous version (SHA1) <a href=\"https://github.com/jesusangel/wc-sermepa/archive/88112586ed7b4a90fe55d20f70fcea169c046c0c.zip\" target=\"_blank\">here</a>"
+msgstr "Puedes descargar la versión anterior (con la firma SHA1) <a href=\"https://github.com/jesusangel/wc-sermepa/archive/88112586ed7b4a90fe55d20f70fcea169c046c0c.zip\" target=\"_blank\">aquí</a>"
+
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:174
+#: wc_redsys_payment_gateway.php:177
 msgid "Gateway Disabled"
 msgstr "Pasarela desactivada"
 
-#: wc_redsys_payment_gateway.php:174
+#: wc_redsys_payment_gateway.php:177
 msgid "Redsys does not support your store currency."
 msgstr "Redsys no soporta la moneda de su tienda."
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:191
+#: wc_redsys_payment_gateway.php:194
 msgid "Enable/Disable"
 msgstr "Activar/Desactivar"
 
-#: wc_redsys_payment_gateway.php:193
+#: wc_redsys_payment_gateway.php:196
 msgid "Choose mode."
 msgstr "Escoje el modo de funcionamiento del TPV"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:194
-#: wc_redsys_payment_gateway.php:200
+#: wc_redsys_payment_gateway.php:197
 msgid "Enable Redsys"
 msgstr "Activar Redsys"
 
-#: wc_redsys_payment_gateway.php:198
+#: wc_redsys_payment_gateway.php:201
+#: wc_redsys_payment_gateway.php:203
 msgid "Mode"
 msgstr "Modo de funcionamiento"
 
-#: wc_redsys_payment_gateway.php:202
+#: wc_redsys_payment_gateway.php:205
 msgid "Production"
 msgstr "Producción"
 
-#: wc_redsys_payment_gateway.php:203
+#: wc_redsys_payment_gateway.php:206
 msgid "Test sis-t"
 msgstr "Pruebas con el entorno sis-t"
 
-#: wc_redsys_payment_gateway.php:204
+#: wc_redsys_payment_gateway.php:207
 msgid "Test sis-d"
 msgstr "Pruebas con el entorno sis-d"
 
-#: wc_redsys_payment_gateway.php:205
+#: wc_redsys_payment_gateway.php:208
 msgid "Test sis-i"
 msgstr "Pruebas con el entorno sis-i"
 
-#: wc_redsys_payment_gateway.php:208
+#: wc_redsys_payment_gateway.php:211
 msgid "TVP mode: production or test"
 msgstr "Modo de funcionamiento del TPV: producción o pruebas (sis-t, sis-d o sis-i)"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:212
+#: wc_redsys_payment_gateway.php:215
 msgid "Title"
 msgstr "Título"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:214
+#: wc_redsys_payment_gateway.php:217
 msgid "This controls the title which the user sees during checkout."
 msgstr "Esto controla el título que el usuario ve durante la finalización de la compra."
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:219
+#: wc_redsys_payment_gateway.php:222
 msgid "Description"
 msgstr "Descripción"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:221
+#: wc_redsys_payment_gateway.php:224
 msgid "This controls the description which the user sees during checkout."
 msgstr "Ésto controla la descripción que los usuarios verán durante la finalización de la compra."
 
-#: wc_redsys_payment_gateway.php:223
+#: wc_redsys_payment_gateway.php:226
 msgid "Payment gateway with Redsys credit card."
 msgstr "Pago con tarjeta mediante pasarela de pago (Redsys)"
 
-#: wc_redsys_payment_gateway.php:226
+#: wc_redsys_payment_gateway.php:229
 msgid "Allowed payment methods"
 msgstr "Métodos de pago aceptados"
 
-#: wc_redsys_payment_gateway.php:228
+#: wc_redsys_payment_gateway.php:231
 msgid "Allowed payment methods."
 msgstr "Métodos de pago aceptados."
 
-#: wc_redsys_payment_gateway.php:231
+#: wc_redsys_payment_gateway.php:234
 msgid "All"
 msgstr "Todos"
 
-#: wc_redsys_payment_gateway.php:232
+#: wc_redsys_payment_gateway.php:235
 msgid "Only credit card"
 msgstr "Sólo tarjeta"
 
-#: wc_redsys_payment_gateway.php:233
+#: wc_redsys_payment_gateway.php:236
 msgid "Credit card and Iupay"
 msgstr "Tarjeta y Iupay"
 
-#: wc_redsys_payment_gateway.php:238
+#: wc_redsys_payment_gateway.php:241
 msgid "Owner name"
 msgstr "Nombre del comercio"
 
-#: wc_redsys_payment_gateway.php:240
+#: wc_redsys_payment_gateway.php:243
 msgid "Name and surname of the owner."
 msgstr "Nombre y apellidos del propietario"
 
-#: wc_redsys_payment_gateway.php:245
+#: wc_redsys_payment_gateway.php:248
 #, fuzzy
 msgid "Commerce name"
 msgstr "Número de comercio (FUC)"
 
-#: wc_redsys_payment_gateway.php:247
+#: wc_redsys_payment_gateway.php:250
 msgid "The commerce name."
 msgstr "Número de comercio (FUC)"
 
-#: wc_redsys_payment_gateway.php:252
+#: wc_redsys_payment_gateway.php:255
 msgid "Commerce number (FUC)"
 msgstr "Número de comercio (FUC)"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:254
+#: wc_redsys_payment_gateway.php:257
 msgid "Please enter your Redsys commerce number (FUC); this is needed in order to take payment."
 msgstr "Por favor, introduzca su número de comercio (FUC) de redsys, esto es necesario con el fin de recibir el pago."
 
-#: wc_redsys_payment_gateway.php:259
+#: wc_redsys_payment_gateway.php:262
 msgid "Terminal number"
 msgstr "Número de terminal"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:261
+#: wc_redsys_payment_gateway.php:264
 msgid "Please enter your Redsys terminal number; this is needed in order to take payment."
 msgstr "Por favor, introduzca su número de terminal de Redsys, esto es necesario con el fin de recibir el pago."
 
-#: wc_redsys_payment_gateway.php:266
+#: wc_redsys_payment_gateway.php:269
 msgid "Currency identifier"
 msgstr "Identificador de moneda"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:268
+#: wc_redsys_payment_gateway.php:271
 msgid "Please enter your Redsys currency identifier; this is needed in order to take payment."
 msgstr "Por favor, introduzca el identificador de moneda de su terminal, esto es necesario con el fin de recibir el pago."
 
-#: wc_redsys_payment_gateway.php:290
+#: wc_redsys_payment_gateway.php:293
 #, fuzzy
 msgid "Secret key (SHA-256)"
 msgstr "Clave secreta"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:292
+#: wc_redsys_payment_gateway.php:295
 #, fuzzy
 msgid "Please enter your secret key; this is needed in order to take payment."
 msgstr "Por favor, introduzca su clave secreta de Redsys, esto es necesario con el fin de recibir el pago."
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:296
+#: wc_redsys_payment_gateway.php:299
 #, fuzzy
 msgid "Enable languages"
 msgstr "Activar Redsys"
 
-#: wc_redsys_payment_gateway.php:298
+#: wc_redsys_payment_gateway.php:301
 msgid "Shows TPV with customer's language."
 msgstr "Mostrar TPV con el idioma del cliente."
 
-#: wc_redsys_payment_gateway.php:302
+#: wc_redsys_payment_gateway.php:305
 msgid "Gateway Testing"
 msgstr "Modo de pruebas"
 
-#: wc_redsys_payment_gateway.php:307
+#: wc_redsys_payment_gateway.php:310
 msgid "Debug Log"
 msgstr "Registro de depración"
 
-#: wc_redsys_payment_gateway.php:309
+#: wc_redsys_payment_gateway.php:312
 msgid "Enable logging"
 msgstr "Activar registro"
 
-#: wc_redsys_payment_gateway.php:311
+#: wc_redsys_payment_gateway.php:314
 msgid "Log Redsys events, inside <code>woocommerce/logs/redsys.txt</code>"
 msgstr "Registra los eventos del plugin"
 
-#: wc_redsys_payment_gateway.php:467
+#: wc_redsys_payment_gateway.php:475
 msgid "Thank you for your order. We are now redirecting you to Redsys to make payment."
 msgstr "Gracias por su pedido. Ahora accederá a la pasarela para hacer el pago."
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:488
+#: wc_redsys_payment_gateway.php:496
 msgid "Pay via Redsys"
 msgstr "Pagar mediante Redsys"
 
-#: wc_redsys_payment_gateway.php:489
+#: wc_redsys_payment_gateway.php:497
 msgid "Cancel order &amp; restore cart"
 msgstr "Cancelar el pedido"
 
-#: wc_redsys_payment_gateway.php:519
+#: wc_redsys_payment_gateway.php:527
 msgid "Thank you for your order, please click the button below to pay with Redsys."
 msgstr "Gracias por su pedido. Por favor, pulse sobre el botón para pagar."
 
-#: wc_redsys_payment_gateway.php:612
+#: wc_redsys_payment_gateway.php:626
 #, php-format
 msgid "Validation error: Redsys amounts do not match (amount %s)."
 msgstr "Error de validación: los importes no coinciden (total %s)."
 
-#: wc_redsys_payment_gateway.php:632
+#: wc_redsys_payment_gateway.php:646
 msgid "Redsys payment completed"
 msgstr "Pago completado"
 
-#: wc_redsys_payment_gateway.php:639
-#: wc_redsys_payment_gateway.php:671
+#: wc_redsys_payment_gateway.php:654
+#: wc_redsys_payment_gateway.php:686
 #, php-format
 msgid "Payment error: code: %s."
 msgstr "Error en el pago: código %s."
 
-#: wc_redsys_payment_gateway.php:665
+#: wc_redsys_payment_gateway.php:680
 msgid "Payment error: bank unavailable."
 msgstr "Error en el pago: banco no disponible."
 
-#: wc_redsys_payment_gateway.php:681
+#: wc_redsys_payment_gateway.php:696
 msgid "Awaiting REDSYS payment"
 msgstr "Esperando pago con tarjeta"
+
+#: wc_redsys_payment_gateway.php:718
+#, php-format
+msgid "Please, get a new SHA256 key from your TPV and enter it in the plugin configuration. | <a href=\"%1$s\">Hide Notice</a>"
+msgstr "Por favor, obtén una nueva clave SHA256 en el panel de control del TPV e introdúcela en la configuración del plugin. | <a href=\"%1$s\">Entendido, no volver a mostrar.</a>"
 
 # @ wc_redsys_payment_gateway
 #~ msgid "Redsys sandbox"

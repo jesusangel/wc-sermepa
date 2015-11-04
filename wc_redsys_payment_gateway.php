@@ -19,7 +19,7 @@
  * Plugin Name: WooCommerce Redsys payment gateway
  * Plugin URI: http://tel.abloque.com/sermepa_woocommerce.html
  * Description: Redsys payment gateway for WooCommerce
- * Version: 1.0
+ * Version: 1.0.1
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
@@ -114,7 +114,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					add_action( 'woocommerce_api_' . strtolower( get_class( $this ) ), array( $this, 'check_notification' ) );
 					add_action('woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 				}
-				add_action('woocommerce_receipt_myredsys', array( $this, 'receipt_page' ) );
+				add_action( 'woocommerce_receipt_myredsys', array( $this, 'receipt_page' ) );
+				add_action( 'admin_notices', array( $this, 'admin_notice' ) );
+				add_action('admin_init', array( $this, 'ignore_notice' ) );
 				
 						
 				if ( !$this->is_valid_for_use() ) $this->enabled = false;
@@ -159,6 +161,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		    	?>
 <h3><?php _e('Redsys', 'wc_redsys_payment_gateway'); ?></h3>
 <p><?php _e('Redsys works by sending the user to Redsys to enter their payment information.', 'wc_redsys_payment_gateway'); ?></p>
+<p><?php _e( 'You\'ll find previous version (SHA1) <a href="https://github.com/jesusangel/wc-sermepa/archive/88112586ed7b4a90fe55d20f70fcea169c046c0c.zip" target="_blank">here</a>', 'wc_redsys_payment_gateway' ); ?></p>
 
 <?php if ( $this->is_valid_for_use() ) : ?>
 <table class="form-table">
@@ -187,7 +190,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		    function init_form_fields() {
 		
 		    	$this->form_fields = array(
-					'enabled' => array(
+		    		'enabled' => array(
 						'title' => __( 'Enable/Disable', 'wc_redsys_payment_gateway' ),
 						'type' => 'checkbox',
 						'description' => __( 'Choose mode.', 'wc_redsys_payment_gateway' ),
@@ -703,6 +706,25 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					wp_die( '<img src="'.home_url() .'/wp-content/plugins/' . dirname( plugin_basename( __FILE__ ) ) . '/pages/assets/images/redsys.png" alt="Redsys" /><br>
 						<img src="'.home_url().'/wp-content/plugins/' . dirname( plugin_basename( __FILE__ ) ) . '/pages/assets/images/cross.png" alt="Error" title="Error" />
 						<b>Error</b>: Fallo en el proceso de pago.<br>Su pedido ha sido cancelado.' );
+				}
+			}
+			
+			function admin_notice() {
+				global $current_user ;
+				$user_id = $current_user->ID;
+				
+				if ( ! get_user_meta($user_id, 'ignore_redsys_sha256_notice') ) {
+					$class = "updated";
+					$message = sprintf( __( 'Please, get a new SHA256 key from your TPV and enter it in the plugin configuration. | <a href="%1$s">Hide Notice</a>', 'wc_redsys_payment_gateway' ), '?ignore_redsys_sha256_notice=0');
+					echo "<div class=\"$class\"> <p>$message</p></div>";
+				}
+			}
+			
+			function ignore_notice() {
+				global $current_user;
+				$user_id = $current_user->ID;
+				if ( isset($_GET['ignore_redsys_sha256_notice']) && '0' == $_GET['ignore_redsys_sha256_notice'] ) {
+					add_user_meta($user_id, 'ignore_redsys_sha256_notice', 'true', true);
 				}
 			}
 
