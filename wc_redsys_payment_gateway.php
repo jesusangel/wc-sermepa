@@ -19,7 +19,7 @@
  * Plugin Name: WooCommerce Redsys payment gateway
  * Plugin URI: http://tel.abloque.com/sermepa_woocommerce.html
  * Description: Redsys payment gateway for WooCommerce
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
@@ -37,43 +37,16 @@ require_once('libs/sha256.php');
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 
 	add_action('plugins_loaded', 'init_wc_myredsys_payment_gateway', 0);
+		
+	add_action( 'admin_notices', 'wc_myredsys_payment_gateway_admin_notice_mcrypt' );
+	function wc_myredsys_payment_gateway_admin_notice_mcrypt() {
 	
-	/*
-	register_activation_hook ( __FILE__, 'wc_myredsys_payment_gateway_activation' );
-	function wc_myredsys_payment_gateway_activation() {
-		$notices = get_option ( 'wc_myredsys_payment_gateway_deferred_admin_notices', array () );
-		$notices [] = $message = sprintf( __( 'Please, get a new SHA256 key from your TPV and enter it in the plugin configuration. | <a href="%1$s">Hide Notice</a>', 'wc_redsys_payment_gateway' ), '?ignore_redsys_sha256_notice=0');
-		update_option( 'wc_myredsys_payment_gateway_deferred_admin_notices', $notices );
-	}
-	
-	add_action ( 'admin_init', 'wc_myredsys_payment_gateway_admin_init' );
-	function wc_myredsys_payment_gateway_admin_init() {
-		$current_version = '1.0.2';
-		$version = get_option ( 'wc_myredsys_payment_gateway_version' );
-		if ( version_compare( $version, $current_version ) < 0 ) {
-			// Do whatever upgrades needed here.
-			update_option ( 'wc_myredsys_payment_gateway_version', $current_version );
-			$notices = get_option ( 'wc_myredsys_payment_gateway_deferred_admin_notices', array () );
-			$notices [] = "My Plugin: Upgraded version $version to $current_version.";
-			update_option ( 'wc_myredsys_payment_gateway_deferred_admin_notices', $notices );
+		if (! function_exists( 'mcrypt_encrypt' ) ) {
+			$class = "error";
+			$message = sprintf ( __ ( 'Mcrypt extension is missing. Please, ask your hosting provider to enable it.', 'wc_redsys_payment_gateway' ), '?ignore_redsys_sha256_notice=0' );
+			echo "<div class=\"$class\"> <p>$message</p></div>";
 		}
 	}
-	
-	add_action ( 'admin_notices', 'wc_myredsys_payment_gateway_admin_notices' );
-	function wc_myredsys_payment_gateway_admin_notices() {
-		if ($notices = get_option ( 'wc_myredsys_payment_gateway_deferred_admin_notices' )) {
-			foreach ( $notices as $notice ) {
-				echo "<div class='updated'><p>$notice</p></div>";
-			}
-			delete_option ( 'wc_myredsys_payment_gateway_deferred_admin_notices' );
-		}
-	}
-	
-	register_deactivation_hook ( __FILE__, 'wc_myredsys_payment_gateway_deactivation' );
-	function wc_myredsys_payment_gateway_deactivation() {
-		delete_option ( 'wc_myredsys_payment_gateway_version' );
-		delete_option ( 'wc_myredsys_payment_gateway_deferred_admin_notices' );
-	}*/
 	
 	add_action( 'admin_notices', 'wc_myredsys_payment_gateway_admin_notice' );
 	function wc_myredsys_payment_gateway_admin_notice() {
@@ -124,7 +97,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				global $woocommerce;
 		
 				$this->id			= 'myredsys';
-				$this->icon 		= home_url() . '/wp-content/plugins/' . dirname( plugin_basename( __FILE__ ) ) . '/assets/images/icons/redsys.png';
+				// Thank you @oscarestepa for this line
+				$this->icon 		= apply_filters( 'wc_redsys_icon',  home_url() . '/wp-content/plugins/' . dirname( plugin_basename( __FILE__ ) ) . '/assets/images/icons/redsys.png' );
 				$this->has_fields 	= false;
 				$this->method_title     = __( 'Credit card (TPV Redsys)', 'wc_redsys_payment_gateway' );
 				$this->method_description = __( 'Pay with credit card using Redsys TPV', 'wc_redsys_payment_gateway' );
@@ -513,7 +487,14 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					break;	
 				}
 		
-				$redsys_args = $this->get_redsys_args( $order );
+				try {
+					$redsys_args = $this->get_redsys_args( $order );
+				} catch ( Exception $e ) {
+					if ( 'yes' == $this->debug ) {
+						$this->log->add( 'redsys', 'Error generating payment form ' . $e->getMessage() );
+					}
+					return $e->getMessage();
+				}
 				
 				if ( 'yes' == $this->debug ) {
 					$this->log->add( 'redsys', 'Sending data to Redsys ' . print_r( $redsys_args, true ));
@@ -629,7 +610,14 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				        	$data = json_decode( $data, true); //(PHP 5 >= 5.2.0)
 				        }
 				        
-				        $calculated_signature = $this->generateResponseSignature( $this->secret_key, $encoded_data );
+				        try {
+				        	$calculated_signature = $this->generateResponseSignature( $this->secret_key, $encoded_data );
+				        } catch ( Exception $e ) {
+				        	if ( 'yes' == $this->debug ) {
+				        		$this->log->add( 'redsys', 'Error while validating notification from Redsys: ' . $e->getMessage() );
+				        	}
+				        	wp_die();
+				        }
 				        
 				        $received_amount	= $data['Ds_Amount'];
 				        $order_id	= substr( $data['Ds_Order'], 0, 8 );
@@ -797,7 +785,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				} else {
 					$data = json_decode( $data_string, true); //(PHP 5 >= 5.2.0)
 				}
-					
+				
 				$key = $this->encrypt_3DES( $this->getOrderNotified( $data ), $key);
 				$mac256 = $this->mac256( $b64_data, $key );
 				return strtr( base64_encode( $mac256 ), '+/', '-_' );
@@ -826,7 +814,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$bytes = array(0,0,0,0,0,0,0,0); //byte [] IV = {0, 0, 0, 0, 0, 0, 0, 0}
 				$iv = implode(array_map("chr", $bytes)); //PHP 4 >= 4.0.2
 			
-				$ciphertext = mcrypt_encrypt(MCRYPT_3DES, $key, $message, MCRYPT_MODE_CBC, $iv); //PHP 4 >= 4.0.2
+				if ( function_exists( 'mcrypt_encrypt' ) ) {
+					$ciphertext = mcrypt_encrypt(MCRYPT_3DES, $key, $message, MCRYPT_MODE_CBC, $iv); //PHP 4 >= 4.0.2
+				} else {
+					throw new Exception( __( 'Mcrypt extension is not available in this server', 'wc_redsys_payment_gateway' ) );
+				}
+				
 				return $ciphertext;
 			}
 			
