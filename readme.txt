@@ -4,7 +4,7 @@ Tags: ecommerce, e-commerce, commerce, wordpress woocommerce, payment, plugin, g
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jesusangel.delpozo@gmail.com&item_name=Donation+for+WC-Sermepa
 Requires at least: 3.3
 Tested up to: 4.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -77,6 +77,10 @@ Yes you can! Join in on our [GitHub repository](http://github.com/jesusangel/wc-
 3. WooCommerce sales reports
 
 == Changelog ==
+
+= 1.0.3 - 14/11/2015
+* Fix. Manage missing Mcrypt extension
+* Added filter (wc_redsys_icon) to change redsys logo. Thanks to @oscarestepa
 
 = 1.0.2 - 04/11/2015
 * Fix. Hide notification about SHA256 key
