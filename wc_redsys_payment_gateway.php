@@ -19,7 +19,7 @@
  * Plugin Name: WooCommerce Redsys payment gateway
  * Plugin URI: http://tel.abloque.com/sermepa_woocommerce.html
  * Description: Redsys payment gateway for WooCommerce
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
@@ -510,8 +510,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				foreach ($redsys_args as $key => $value) {
 					$redsys_fields_array[] = '<input type="hidden" name="'.esc_attr( $key ).'" value="'.esc_attr( $value ).'" />';
 				}
-		
-				wc_enqueue_js('
+				
+				$script = '
 					jQuery("body").block({
 							message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ) ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />'.__('Thank you for your order. We are now redirecting you to Redsys to make payment.', 'wc_redsys_payment_gateway').'",
 							overlayCSS:
@@ -530,7 +530,13 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 						    }
 						});
 					setTimeout(function () { jQuery("#submit_redsys_payment_form").click(); }, 5000);
-				');
+				';
+				
+				if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '<' ) ) {
+					$woocommerce->add_inline_js( $script );
+				} else {
+					wc_enqueue_js( $script );
+				}
 		
 				return '<form action="'.esc_url( $redsys_addr ).'" method="post" id="redsys_payment_form" target="_top">
 						' . implode('', $redsys_fields_array) . '
@@ -572,14 +578,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			}
 		
 			/**
-			 * Check Redsys notification
-			 **/
-			function check_notification_is_valid() {
-				
-		    }
-		
-		
-			/**
 			 * Check for Redsys notification
 			 *
 			 * @access public
@@ -591,9 +589,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				if ( 'yes' == $this->debug ) {
 					$this->log->add( 'redsys', 'Checking notification is valid...' );
 				}
-		
+
 				if ( !empty( $_REQUEST ) ) {
-					if ( !empty( $_POST ) ) {
+					if ( !empty( $_POST ) && array_key_exists( 'ds_signature', array_change_key_case( $_POST, CASE_LOWER ) ) ) {
 		
 						@ob_clean();
 			
@@ -751,15 +749,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					        }
 				        }
 		
-					} else {
-						wp_die( '<img src="'.home_url() .'/wp-content/plugins/' . dirname( plugin_basename( __FILE__ ) ) . '/pages/assets/images/redsys.png" alt="Redsys" /><br>
-							<img src="'.home_url().'/wp-content/plugins/' . dirname( plugin_basename( __FILE__ ) ) . '/pages/assets/images/cross.png" alt="Error" title="Error" />
-							<b>Error</b>: Fallo en el proceso de pago.<br>Su pedido ha sido cancelado.' );
 					}
-				} else {
-					wp_die( '<img src="'.home_url() .'/wp-content/plugins/' . dirname( plugin_basename( __FILE__ ) ) . '/pages/assets/images/redsys.png" alt="Redsys" /><br>
-						<img src="'.home_url().'/wp-content/plugins/' . dirname( plugin_basename( __FILE__ ) ) . '/pages/assets/images/cross.png" alt="Error" title="Error" />
-						<b>Error</b>: Fallo en el proceso de pago.<br>Su pedido ha sido cancelado.' );
 				}
 			}
 			
