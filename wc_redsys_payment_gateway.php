@@ -19,7 +19,7 @@
  * Plugin Name: WooCommerce Redsys payment gateway
  * Plugin URI: http://tel.abloque.com/sermepa_woocommerce.html
  * Description: Redsys payment gateway for WooCommerce
- * Version: 1.0.3
+ * Version: 1.0.4
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
@@ -362,15 +362,20 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					$this->log->add( 'redsys', 'Generating payment form for order #' . $order_id . '. Notify URL: ' . $this->notify_url );
 				}
 				
-				$cart_contents = WC()->cart->cart_contents;
 				$products = '';
-				foreach ( $cart_contents as $cart_content ) {
-					if ( !empty( $products ) ) {
-						$separator = '/';
-					} else {
-						$separator = '';
+				if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>' ) ) {
+					if ( is_array( $cart_contents = WC()->cart->cart_contents ) ) {
+						foreach ( $cart_contents as $cart_content ) {
+							if ( !empty( $products ) ) {
+								$separator = '/';
+							} else {
+								$separator = '';
+							}
+							$products .= $separator . $cart_content['quantity'] . 'x' . $cart_content['data']->post->post_title;
+						}
 					}
-					$products .= $separator . $cart_content['quantity'] . 'x' . $cart_content['data']->post->post_title;
+				} else {
+					$products = __('Online order', 'wc_redsys_payment_gateway');
 				}
 				
 				$importe = $order->get_total();
@@ -581,6 +586,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 * @return void
 			 */
 			function check_notification() {
+				global $woocommerce;
 
 				if ( 'yes' == $this->debug ) {
 					$this->log->add( 'redsys', 'Checking notification is valid...' );
@@ -737,7 +743,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					        }
 					        
 					        $order->update_status('cancelled', __( 'Awaiting REDSYS payment', 'wc_redsys_payment_gateway' ));
-					        WC()->cart->empty_cart();
+					        
+					        if ( version_compare( WOOCOMMERCE_VERSION, '2.0', '<' ) ) {
+					        	$woocommerce->cart->empty_cart();
+					        } else {
+					        	WC()->cart->empty_cart();
+					        }
 				        }
 		
 					} else {
