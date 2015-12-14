@@ -98,7 +98,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		
 				$this->id			= 'myredsys';
 				// Thank you @oscarestepa for this line
-				$this->icon 		= apply_filters( 'wc_redsys_icon',  home_url() . '/wp-content/plugins/' . dirname( plugin_basename( __FILE__ ) ) . '/assets/images/icons/redsys.png' );
+				$this->icon 		= apply_filters( 'wc_redsys_icon',  plugins_url('/assets/images/icons/redsys.png', __FILE__ ));
 				$this->has_fields 	= false;
 				$this->method_title     = __( 'Credit card (TPV Redsys)', 'wc_redsys_payment_gateway' );
 				$this->method_description = __( 'Pay with credit card using Redsys TPV', 'wc_redsys_payment_gateway' );
