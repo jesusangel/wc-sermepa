@@ -513,7 +513,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				
 				$script = '
 					jQuery("body").block({
-							message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ) ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />'.__('Thank you for your order. We are now redirecting you to Redsys to make payment.', 'wc_redsys_payment_gateway').'",
+							message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ) ) . '\" alt=\"'.__('Redirecting&hellip;', 'wc_redsys_payment_gateway').'\" style=\"float:left; margin-right: 10px;\" />'.__('Thank you for your order. We are now redirecting you to Redsys to make payment.', 'wc_redsys_payment_gateway').'",
 							overlayCSS:
 							{
 								background: "#fff",
