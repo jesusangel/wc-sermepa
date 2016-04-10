@@ -19,7 +19,7 @@
  * Plugin Name: WooCommerce Redsys payment gateway
  * Plugin URI: http://tel.abloque.com/sermepa_woocommerce.html
  * Description: Redsys payment gateway for WooCommerce
- * Version: 1.0.8
+ * Version: 1.0.9
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
@@ -102,7 +102,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$this->has_fields 	= false;
 				$this->method_title     = __( 'Credit card (TPV Redsys)', 'wc_redsys_payment_gateway' );
 				$this->method_description = __( 'Pay with credit card using Redsys TPV', 'wc_redsys_payment_gateway' );
-				$this->notify_url   = str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_MyRedsys', home_url( '/' ) ) );
+				$this->notify_url   = add_query_arg( 'wc-api', 'WC_MyRedsys', home_url( '/' ) );
 	
 		        // Set up localisation
 	            $this->load_plugin_textdomain();
