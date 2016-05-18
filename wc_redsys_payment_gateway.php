@@ -632,18 +632,14 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				        }
 				        
 				        $received_amount	= $data['Ds_Amount'];
-				        //$order_id	= substr( $data['Ds_Order'], 0, 8 );
+				        $order_id	= substr( $data['Ds_Order'], 0, 8 );
 				        $fuc		= $data['Ds_MerchantCode'];
 				        $currency	= $data['Ds_Currency'];
 				        $response	= $data['Ds_Response'];
 				        $auth_code	= $data['Ds_AuthorisationCode'];
 
 				        // Reverse order code customization
-				        $order_id = apply_filters("wc_myredsys_merchant_order_decode", $data['Ds_Order']);
-				        // If not any change made, do default action
-				        if ( $order_id == $data['Ds_Order'] ) {
-				        	$order_id = substr( $data['Ds_Order'], 0, 8 );
-				        }
+				        $order_id = apply_filters("wc_myredsys_merchant_order_decode", $order_id, $data['Ds_Order']);
 				        
 				        // check to see if the response is valid
 				        if ( $received_signature === $calculated_signature
