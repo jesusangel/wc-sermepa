@@ -387,6 +387,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			function get_redsys_args( $order ) {
 				$order_id = $order->id;
 				$unique_order_id = str_pad( $order_id, 8, '0', STR_PAD_LEFT ) . date( 'is' );
+
+				// Customize order code for TPV
+				$unique_order_id = apply_filters("wc_myredsys_merchant_order_encode", $unique_order_id, $order_id);
 		
 				if ( 'yes' == $this->debug ) {
 					$this->log->add( 'redsys', 'Generating payment form for order #' . $order_id . '. Notify URL: ' . $this->notify_url );
@@ -664,6 +667,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				        $currency	= $data['Ds_Currency'];
 				        $response	= $data['Ds_Response'];
 				        $auth_code	= $data['Ds_AuthorisationCode'];
+
+				        // Reverse order code customization
+				        $order_id = apply_filters("wc_myredsys_merchant_order_decode", $order_id, $data['Ds_Order']);
 				        
 				        // check to see if the response is valid
 				        if ( $received_signature === $calculated_signature
