@@ -19,7 +19,7 @@
  * Plugin Name: WooCommerce Redsys payment gateway
  * Plugin URI: http://tel.abloque.com/sermepa_woocommerce.html
  * Description: Redsys payment gateway for WooCommerce
- * Version: 1.0.9
+ * Version: 1.0.10
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
@@ -102,7 +102,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$this->has_fields 	= false;
 				$this->method_title     = __( 'Credit card (TPV Redsys)', 'wc_redsys_payment_gateway' );
 				$this->method_description = __( 'Pay with credit card using Redsys TPV', 'wc_redsys_payment_gateway' );
-				$this->notify_url   = add_query_arg( 'wc-api', 'WC_MyRedsys', home_url( '/' ) );
 	
 		        // Set up localisation
 	            $this->load_plugin_textdomain();
@@ -119,13 +118,27 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$this->owner_name		= $this->settings['owner_name'];
 				$this->commerce_name	= $this->settings['commerce_name'];
 				$this->mode				= $this->settings['mode'];
+				$this->protocol			= $this->settings['protocol'];
 				$this->commerce_number	= $this->settings['commerce_number'];
 				$this->terminal_number	= $this->settings['terminal_number'];
 				$this->currency_id		= $this->settings['currency_id'];
 				$this->secret_key		= $this->settings['secret_key'];
 				$this->payment_method	= $this->settings['payment_method'];
 				$this->language			= $this->settings['language'];
-				$this->debug			= $this->settings['debug'];			
+				$this->debug			= $this->settings['debug'];
+
+				switch ( $this->protocol ) {
+					case 'HTTP':
+						$this->notify_url   = str_ireplace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_MyRedsys', home_url( '/' ) ) );
+					break;
+					case 'HTTPS':
+						$this->notify_url   = str_ireplace( 'http:', 'https:', add_query_arg( 'wc-api', 'WC_MyRedsys', home_url( '/' ) ) );
+					break;
+					default:
+						$this->notify_url = add_query_arg( 'wc-api', 'WC_MyRedsys', home_url( '/' ) );
+					break;
+				}
+				
 		
 				// Logs
 				if ( 'yes' == $this->debug ) {
@@ -222,7 +235,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		    		'enabled' => array(
 						'title' => __( 'Enable/Disable', 'wc_redsys_payment_gateway' ),
 						'type' => 'checkbox',
-						'description' => __( 'Choose mode.', 'wc_redsys_payment_gateway' ),
+						'description' => __( 'Enable/Disable payment method.', 'wc_redsys_payment_gateway' ),
+		    			'desc_tip'    => true,
 						'label' => __( 'Enable Redsys', 'wc_redsys_payment_gateway' ),
 						'default' => 'yes'
 					),
@@ -237,8 +251,23 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	    							'I' => __( 'Test sis-i', 'wc_redsys_payment_gateway' ),
 	    							
 	    					),
-	    					'description' => __( 'TVP mode: production or test'),
+	    					'description' => __( 'TVP mode: production or test', 'wc_redsys_payment_gateway'),
+	    					'desc_tip'    => true,
 	    					'default'     => 'T'
+	    			),
+	    			'protocol' => array(
+	    					'title' => __( 'Notifications protocol', 'wc_redsys_payment_gateway' ),
+	    					'type' => 'select',
+	    					'label' => __( 'Protocol', 'wc_redsys_payment_gateway' ),
+	    					'options'     => array(
+	    							'Auto' => __( 'Auto', 'wc_redsys_payment_gateway' ),
+	    							'HTTP' => __( 'HTTP', 'wc_redsys_payment_gateway' ),
+	    							'HTTPS' => __( 'HTTPS', 'wc_redsys_payment_gateway' )
+	    			
+	    					),
+	    					'description' => __( 'Protocol to use by RedSYS notififications. HTTPS works only for sites with SSL and dedicated IP. Redsys doesn\'t work with SNI (22/05/2016)', 'wc_redsys_payment_gateway'),
+	    					'desc_tip'    => true,
+	    					'default'     => 'Auto'
 	    			),
 					'title' => array(
 						'title' => __( 'Title', 'wc_redsys_payment_gateway' ),
@@ -255,14 +284,14 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
     					'default' => __( 'Payment gateway with Redsys credit card.', 'wc_redsys_payment_gateway' )
 	    			),
 	    			'payment_method' => array(
-    					'title'       => __( 'Allowed payment methods', 'woocommerce' ),
+    					'title'       => __( 'Allowed payment methods', 'wc_redsys_payment_gateway' ),
     					'type'        => 'select',
-    					'description' => __( 'Allowed payment methods.', 'woocommerce' ),
+    					'description' => __( 'Allowed payment methods.', 'wc_redsys_payment_gateway' ),
 	    				'desc_tip'    => true,
     					'options'     => array(
-    							' ' => __( 'All', 'woocommerce' ),
-    							'C' => __( 'Only credit card', 'woocommerce' ),
-    							'T' => __( 'Credit card and Iupay', 'woocommerce' )
+    							' ' => __( 'All', 'wc_redsys_payment_gateway' ),
+    							'C' => __( 'Only credit card', 'wc_redsys_payment_gateway' ),
+    							'T' => __( 'Credit card and Iupay', 'wc_redsys_payment_gateway' )
     					),
 	    				'default'     => 'T'
 	    			),
@@ -325,9 +354,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 						'default' => ''
 					),
 					'language' => array(
-						'title' => __( 'Enable languages', 'woocommerce' ),
+						'title' => __( 'Enable languages', 'wc_redsys_payment_gateway' ),
 						'type' => 'checkbox',
-						'description' => __( 'Shows TPV with customer\'s language.', 'woocommerce' ),
+						'description' => __( 'Shows TPV with customer\'s language.', 'wc_redsys_payment_gateway' ),
+						'desc_tip'    => true,
 						'default' => 'No'
 					),
 					'testing' => array(
@@ -340,7 +370,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 						'type' => 'checkbox',
 						'label' => __( 'Enable logging', 'wc_redsys_payment_gateway' ),
 						'default' => 'no',
-						'description' => __( 'Log Redsys events, inside <code>woocommerce/logs/redsys.txt</code>' ),
+						'description' => sprintf( __( 'Log Redsys events, inside %s', 'wc_redsys_payment_gateway' ), wc_get_log_file_path( 'redsys' ) ),
 					)
 				);
 		

@@ -3,8 +3,8 @@ Contributors: jesusangel
 Tags: ecommerce, e-commerce, commerce, wordpress woocommerce, payment, plugin, gateway, servired, sermepa, redsys
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jesusangel.delpozo@gmail.com&item_name=Donation+for+WC-Sermepa
 Requires at least: 3.3
-Tested up to: 4.1
-Stable tag: 1.0.9
+Tested up to: 4.5.2
+Stable tag: 1.0.10
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,6 +78,10 @@ Yes you can! Join in on our [GitHub repository](http://github.com/jesusangel/wc-
 3. WooCommerce sales reports
 
 == Changelog ==
+
+= 1.0.10 - 22/05/2016
+* Added option to select protocol for Redsys notifications URL. Select HTTP if your site uses SSL with SNI (shared IP). Remember to allow Redsys gateway to reach your site via HTTP.
+* Fixed some translations
 
 = 1.0.9 - 11/04/2016
 * Fixed wrong HTTPS link
