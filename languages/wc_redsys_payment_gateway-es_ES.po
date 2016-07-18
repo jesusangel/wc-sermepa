@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WC-Redsys_payment_gateway v0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-22 19:46+0100\n"
-"PO-Revision-Date: 2016-05-22 19:46+0100\n"
+"PO-Revision-Date: 2016-07-18 23:53+0100\n"
 "Last-Translator: Jesús Ángel del Pozo <jesusangel.delpozo@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -208,7 +208,7 @@ msgstr "Nombre del comercio"
 
 #: wc_redsys_payment_gateway.php:308
 msgid "The commerce name."
-msgstr "Número de comercio (FUC)"
+msgstr "Nombre del comercio"
 
 #: wc_redsys_payment_gateway.php:313
 msgid "Commerce number (FUC)"
