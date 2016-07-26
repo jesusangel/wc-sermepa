@@ -29,11 +29,6 @@
  *
  */
 
-require_once('libs/hash.php');
-require_once('libs/hmac.php');
-require_once('libs/json.php');
-require_once('libs/sha256.php');
-
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 
 	add_action('plugins_loaded', 'init_wc_myredsys_payment_gateway', 0);
@@ -645,12 +640,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				        $encoded_data		= $_POST['Ds_MerchantParameters'];
 				        
 				        $data = base64_decode( strtr( $encoded_data, '-_', '+/' ) );
-				        if ( version_compare( PHP_VERSION, '5.2.0' ) < 0 ) {
-				        	$json_service = new Services_JSON();
-				        	$data = $json_service->decode( $data );
-				        } else {
-				        	$data = json_decode( $data, true); //(PHP 5 >= 5.2.0)
-				        }
+				        $data = json_decode( $data, true);
 				        
 				        try {
 				        	$calculated_signature = $this->generateResponseSignature( $this->secret_key, $encoded_data );
@@ -800,15 +790,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 * @param array $data Merchant data
 			 * @return string B64(json($data))
 			 */
-			function encodeMerchantData( $data ) {
-				if ( version_compare( PHP_VERSION, '5.2.0' ) < 0 ) {
-					$json_service = new Services_JSON();
-					$json = $json_service->encode( $data );
-				} else {
-					$json = json_encode( $data ); //(PHP 5 >= 5.2.0)
-				}
-					
-				return base64_encode( $json );
+			function encodeMerchantData( $data ) {	
+				return base64_encode( json_encode( $data ) );
 			}
 			
 			function generateMerchantSignature( $key, $b64_parameters, $order_id ) {
@@ -821,13 +804,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			function generateResponseSignature( $key, $b64_data ) {
 				$key = base64_decode( $key );
 				$data_string = base64_decode( strtr( $b64_data, '-_', '+/' ) );
-				if ( version_compare( PHP_VERSION, '5.2.0' ) < 0 ) {
-					$json_service = new Services_JSON();
-					$data = $json_service->decode( $data_string );
-				} else {
-					$data = json_decode( $data_string, true); //(PHP 5 >= 5.2.0)
-				}
-				
+				$data = json_decode( $data_string, true);
 				$key = $this->encrypt_3DES( $this->getOrderNotified( $data ), $key);
 				$mac256 = $this->mac256( $b64_data, $key );
 				return strtr( base64_encode( $mac256 ), '+/', '-_' );
@@ -844,20 +821,15 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			}
 			
 			function mac256( $b64_data, $key ){
-				if ( version_compare( PHP_VERSION, '5.1.2' ) < 0 ) {
-					$result = hash_hmac4('sha256', $b64_data, $key, true);
-				} else {
-					$result = hash_hmac('sha256', $b64_data, $key, true);	//(PHP 5 >= 5.1.2)
-				}
-				return $result;
+				return hash_hmac('sha256', $b64_data, $key, true);
 			}
 			
 			function encrypt_3DES( $message, $key ) {
 				$bytes = array(0,0,0,0,0,0,0,0); //byte [] IV = {0, 0, 0, 0, 0, 0, 0, 0}
-				$iv = implode(array_map("chr", $bytes)); //PHP 4 >= 4.0.2
+				$iv = implode(array_map("chr", $bytes));
 			
 				if ( function_exists( 'mcrypt_encrypt' ) ) {
-					$ciphertext = mcrypt_encrypt(MCRYPT_3DES, $key, $message, MCRYPT_MODE_CBC, $iv); //PHP 4 >= 4.0.2
+					$ciphertext = mcrypt_encrypt(MCRYPT_3DES, $key, $message, MCRYPT_MODE_CBC, $iv);
 				} else {
 					throw new Exception( __( 'Mcrypt extension is not available in this server', 'wc_redsys_payment_gateway' ) );
 				}
