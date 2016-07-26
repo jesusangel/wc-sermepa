@@ -79,7 +79,7 @@ Yes you can! Join in on our [GitHub repository](http://github.com/jesusangel/wc-
 
 == Changelog ==
 
-= 1.0.0 - 26/07/2016 =
+= 1.1.0 - 26/07/2016 =
 * Pull request (@gonssal): Removed legacy code. Now the plugin requires PHP >= 5.2.4, like current WP core
 
 = 1.0.13 - 26/07/2016 =
