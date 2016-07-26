@@ -19,11 +19,7 @@
  * Plugin Name: WooCommerce Redsys payment gateway
  * Plugin URI: http://tel.abloque.com/sermepa_woocommerce.html
  * Description: Redsys payment gateway for WooCommerce
-<<<<<<< HEAD
  * Version: 1.1.0
-=======
- * Version: 1.0.13
->>>>>>> e60f652b417edd3b39b50a23ae84b0c0b1d2dae2
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
