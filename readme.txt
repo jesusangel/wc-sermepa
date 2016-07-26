@@ -79,61 +79,61 @@ Yes you can! Join in on our [GitHub repository](http://github.com/jesusangel/wc-
 
 == Changelog ==
 
-= 1.0.12 - 18/07/2016
+= 1.0.12 - 18/07/2016 =
 * Fix translate error
 
-= 1.0.11 - 22/05/2016
+= 1.0.11 - 22/05/2016 =
 * Pull request (@enbata): Added filters to allow order_id customization: wc_myredsys_merchant_order_encode and wc_myredsys_merchant_order_decode
 
-= 1.0.10 - 22/05/2016
+= 1.0.10 - 22/05/2016 =
 * Added option to select protocol for Redsys notifications URL. Select HTTP if your site uses SSL with SNI (shared IP). Remember to allow Redsys gateway to reach your site via HTTP.
 * Fixed some translations
 
-= 1.0.9 - 11/04/2016
+= 1.0.9 - 11/04/2016 =
 * Fixed wrong HTTPS link
 
-= 1.0.8 - 24/12/2015
+= 1.0.8 - 24/12/2015 =
 * Fixed redirect URL for WC < 2.1
 
-= 1.0.7 - 12/12/2015
+= 1.0.7 - 12/12/2015 =
 * Fixed redefined Services_JSON class error
 
-= 1.0.6 - 08/12/2015
+= 1.0.6 - 08/12/2015 =
 * Replaced home_url with plugin_url to support sites with different plugin folder.
 
-= 1.0.5 - 19/11/2015
+= 1.0.5 - 19/11/2015 =
 * Fix compatibility issue with WooCommerce <= 2.1
 
-= 1.0.4 - 19/11/2015
+= 1.0.4 - 19/11/2015 =
 * Fix. Bug with product description and WC < 2.1
 
-= 1.0.3 - 14/11/2015
+= 1.0.3 - 14/11/2015 =
 * Fix. Manage missing Mcrypt extension
 * Added filter (wc_redsys_icon) to change redsys logo. Thanks to @oscarestepa
 
-= 1.0.2 - 04/11/2015
+= 1.0.2 - 04/11/2015 =
 * Fix. Hide notification about SHA256 key
 
-= 1.0.1 - 04/11/2015
+= 1.0.1 - 04/11/2015 =
 * Added notice to remember user must get a new SHA256 key
 
-= 1.0.0 - 31/10/2015
+= 1.0.0 - 31/10/2015 =
 * Added SHA256 signature
 * Select payment method (card & Iupay)
 * Shows TPV with customer's language
 
-= 0.9.1 - 15/02/2015
+= 0.9.1 - 15/02/2015 =
 * Fixed syntax error
 * Removed deprecated add_inline_js method call
 
-= 0.8 - 11/02/2015
+= 0.8 - 11/02/2015 =
 * Removed deprecated logger method call
 
-= 0.7 - 20/03/2014
+= 0.7 - 20/03/2014 =
 * Added more currencies
 * Added delay to redirect message
 
-= 1 - 26/09/2013
+= 0.6 - 26/09/2013 =
 * Updated to works on both WooCommerce 1.6 and 2.x or greater.
 
 = 0.1 - 26/12/2012 =
