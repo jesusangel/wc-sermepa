@@ -353,8 +353,14 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 						'type' => 'checkbox',
 						'description' => __( 'Shows TPV with customer\'s language.', 'wc_redsys_payment_gateway' ),
 						'desc_tip'    => true,
-						'default' => 'No'
+						'default' => 'no'
 					),
+                    'skip_checkout_form' => array(
+                        'title' => __( 'Skip checkout form', 'wc_redsys_payment_gateway' ),
+						'type' => 'checkbox',
+						'description' => __( 'Skip the last form of the checkout process and redirect into the payment gateway (requires Javascript).', 'wc_redsys_payment_gateway' ),
+						'default' => 'yes'
+                    ),
 					'testing' => array(
 						'title' => __( 'Gateway Testing', 'wc_redsys_payment_gateway' ),
 						'type' => 'title',
@@ -538,38 +544,53 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				foreach ($redsys_args as $key => $value) {
 					$redsys_fields_array[] = '<input type="hidden" name="'.esc_attr( $key ).'" value="'.esc_attr( $value ).'" />';
 				}
+                
+                if ( empty( $this->settings['skip_checkout_form'] ) || $this->settings['skip_checkout_form'] != 'no' ) {
+                    
+                    if ( version_compare( WOOCOMMERCE_VERSION, '2.2.3', '<' ) ) {
+                        $loader_html = '<img src="' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ) ) . '" alt="' . __( 'Redirecting&hellip;', 'wc_redsys_payment_gateway') . '" style="float: left; margin-right: 10px;" />';
+                    }
+                    else {                    
+                        $loader_html = '<div class="woocommerce" style="width: 2em; height: 2em; position: relative; float: left; margin-right: 15px;"><div class="loader"></div></div>';
+                    }
 				
-				$script = '
-					jQuery("body").block({
-							message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ) ) . '\" alt=\"'.__('Redirecting&hellip;', 'wc_redsys_payment_gateway').'\" style=\"float:left; margin-right: 10px;\" />'.__('Thank you for your order. We are now redirecting you to Redsys to make payment.', 'wc_redsys_payment_gateway').'",
-							overlayCSS:
-							{
-								background: "#fff",
-								opacity: 0.6
-							},
-							css: {
-						        padding:        20,
-						        textAlign:      "center",
-						        color:          "#555",
-						        border:         "3px solid #aaa",
-						        backgroundColor:"#fff",
-						        cursor:         "wait",
-						        lineHeight:		"32px"
-						    }
-						});
-					setTimeout(function () { jQuery("#submit_redsys_payment_form").click(); }, 5000);
-				';
-				
-				if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '<' ) ) {
-					$woocommerce->add_inline_js( $script );
-				} else {
-					wc_enqueue_js( $script );
-				}
+                    $script = '
+                        if (jQuery.fn.block) {
+                            jQuery("body").block({
+                                message: \'' . $loader_html . esc_js( __( 'Thank you for your order. You are being redirected to the payment gateway.', 'wc_redsys_payment_gateway' ) ) . '\',
+                                overlayCSS:
+                                {
+                                    background: "#fff",
+                                    opacity: 0.6
+                                },
+                                css: {
+                                    padding:        20,
+                                    textAlign:      "center",
+                                    color:          "#555",
+                                    border:         "3px solid #aaa",
+                                    backgroundColor:"#fff",
+                                    cursor:         "wait",
+                                    lineHeight:		"32px"
+                                }
+                            });
+                        }
+                        jQuery(document).ready(function(){
+                            jQuery("#redsys_payment_form").submit();
+                        });
+                    ';
+
+                    if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '<' ) ) {
+                        $woocommerce->add_inline_js( $script );
+                    } else {
+                        wc_enqueue_js( $script );
+                    }
+                
+                }
 		
-				return '<form action="'.esc_url( $redsys_addr ).'" method="post" id="redsys_payment_form" target="_top">
-						' . implode('', $redsys_fields_array) . '
-						<input type="submit" class="button-alt" id="submit_redsys_payment_form" value="'.__('Pay via Redsys', 'wc_redsys_payment_gateway').'" /> 
-						<a class="button cancel" href="'.esc_url( $order->get_cancel_order_url() ).'">'.__('Cancel order &amp; restore cart', 'wc_redsys_payment_gateway').'</a>
+				return '<form action="' . esc_url( $redsys_addr ) . '" method="post" id="redsys_payment_form" target="_top">
+						' . implode( '', $redsys_fields_array ) . '
+						<input type="submit" class="button button-alt" id="submit_redsys_payment_form" value="' . __('Pay via Redsys', 'wc_redsys_payment_gateway') . '" /> 
+						<a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wc_redsys_payment_gateway' ) . '</a>
 					</form>';
 			}
 		
