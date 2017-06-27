@@ -4,7 +4,7 @@ Tags: ecommerce, e-commerce, commerce, wordpress woocommerce, payment, plugin, g
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jesusangel.delpozo@gmail.com&item_name=Donation+for+WC-Sermepa
 Requires at least: 3.3
 Tested up to: 4.5.2
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,6 +78,9 @@ Yes you can! Join in on our [GitHub repository](http://github.com/jesusangel/wc-
 3. WooCommerce sales reports
 
 == Changelog ==
+
+= 1.2.3 - 27/06/2017 =
+* Added option to set order as completed after payment
 
 = 1.2.2 - 20/04/2017 =
 * Fixed error when an invalid notification was received

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WC-Redsys_payment_gateway v0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-sermepa\n"
-"POT-Creation-Date: 2016-07-27 16:51+0200\n"
-"PO-Revision-Date: 2016-07-27 16:54+0200\n"
+"POT-Creation-Date: 2017-06-27 18:41+0100\n"
+"PO-Revision-Date: 2017-06-27 18:42+0100\n"
 "Last-Translator: Jesús Ángel del Pozo <jesusangel.delpozo@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -16,17 +16,18 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.6.10\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: wc_redsys_payment_gateway.php:41
+#: wc_redsys_payment_gateway.php:39
 msgid ""
 "Mcrypt extension is missing. Please, ask your hosting provider to enable it."
 msgstr ""
 "Falta la extensión Mcrypt. Por favor, solicita a tu proveedor de alojamiento "
 "que la active."
 
-#: wc_redsys_payment_gateway.php:53
+#: wc_redsys_payment_gateway.php:51
+#, php-format
 msgid ""
 "Please, get a new SHA256 key from your TPV and enter it in the plugin "
 "configuration. | <a href=\"%1$s\">Hide Notice</a>"
@@ -36,28 +37,28 @@ msgstr ""
 "volver a mostrar.</a>"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:98
+#: wc_redsys_payment_gateway.php:96
 msgid "Credit card (TPV Redsys)"
 msgstr "Pago con tarjeta mediante pasarela de pago Redsys"
 
-#: wc_redsys_payment_gateway.php:99
+#: wc_redsys_payment_gateway.php:97
 msgid "Pay with credit card using Redsys TPV"
 msgstr "Pagar con tarjeta de crédito usando la Pasarela RedSys"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:199 wc_redsys_payment_gateway.php:272
-#: wc_redsys_payment_gateway.php:298 wc_redsys_payment_gateway.php:305
+#: wc_redsys_payment_gateway.php:198 wc_redsys_payment_gateway.php:271
+#: wc_redsys_payment_gateway.php:297 wc_redsys_payment_gateway.php:304
 msgid "Redsys"
 msgstr "Redsys"
 
-#: wc_redsys_payment_gateway.php:200
+#: wc_redsys_payment_gateway.php:199
 msgid ""
 "Redsys works by sending the user to Redsys to enter their payment "
 "information."
 msgstr ""
 "Este plugin envia  al usuario a la pasarela de pago de Redsys para pagar."
 
-#: wc_redsys_payment_gateway.php:201
+#: wc_redsys_payment_gateway.php:200
 msgid ""
 "You'll find previous version (SHA1) <a href=\"https://github.com/jesusangel/"
 "wc-sermepa/archive/88112586ed7b4a90fe55d20f70fcea169c046c0c.zip\" target="
@@ -69,74 +70,74 @@ msgstr ""
 "\">aquí</a>"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:214
+#: wc_redsys_payment_gateway.php:213
 msgid "Gateway Disabled"
 msgstr "Pasarela desactivada"
 
-#: wc_redsys_payment_gateway.php:214
+#: wc_redsys_payment_gateway.php:213
 msgid "Redsys does not support your store currency."
 msgstr "Redsys no soporta la moneda de su tienda."
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:231
+#: wc_redsys_payment_gateway.php:230
 msgid "Enable/Disable"
 msgstr "Activar/Desactivar"
 
-#: wc_redsys_payment_gateway.php:233
+#: wc_redsys_payment_gateway.php:232
 msgid "Enable/Disable payment method."
 msgstr "Activa/Desactiva el método de pago."
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:235
+#: wc_redsys_payment_gateway.php:234
 msgid "Enable Redsys"
 msgstr "Activar Redsys"
 
-#: wc_redsys_payment_gateway.php:239 wc_redsys_payment_gateway.php:241
+#: wc_redsys_payment_gateway.php:238 wc_redsys_payment_gateway.php:240
 msgid "Mode"
 msgstr "Modo de funcionamiento"
 
-#: wc_redsys_payment_gateway.php:243
+#: wc_redsys_payment_gateway.php:242
 msgid "Production"
 msgstr "Producción"
 
-#: wc_redsys_payment_gateway.php:244
+#: wc_redsys_payment_gateway.php:243
 msgid "Test sis-t"
 msgstr "Pruebas con el entorno sis-t"
 
-#: wc_redsys_payment_gateway.php:245
+#: wc_redsys_payment_gateway.php:244
 msgid "Test sis-d"
 msgstr "Pruebas con el entorno sis-d"
 
-#: wc_redsys_payment_gateway.php:246
+#: wc_redsys_payment_gateway.php:245
 msgid "Test sis-i"
 msgstr "Pruebas con el entorno sis-i"
 
-#: wc_redsys_payment_gateway.php:249
+#: wc_redsys_payment_gateway.php:248
 msgid "TVP mode: production or test"
 msgstr ""
 "Modo de funcionamiento del TPV: producción o pruebas (sis-t, sis-d o sis-i)"
 
-#: wc_redsys_payment_gateway.php:254
+#: wc_redsys_payment_gateway.php:253
 msgid "Notifications protocol"
 msgstr "Protocolo para notificaciones"
 
-#: wc_redsys_payment_gateway.php:256
+#: wc_redsys_payment_gateway.php:255
 msgid "Protocol"
 msgstr "Protocolo"
 
-#: wc_redsys_payment_gateway.php:258
+#: wc_redsys_payment_gateway.php:257
 msgid "Auto"
 msgstr "Automático"
 
-#: wc_redsys_payment_gateway.php:259
+#: wc_redsys_payment_gateway.php:258
 msgid "HTTP"
 msgstr "HTTP"
 
-#: wc_redsys_payment_gateway.php:260
+#: wc_redsys_payment_gateway.php:259
 msgid "HTTPS"
 msgstr "HTTPS"
 
-#: wc_redsys_payment_gateway.php:263
+#: wc_redsys_payment_gateway.php:262
 msgid ""
 "Protocol to use by RedSYS notififications. HTTPS works only for sites with "
 "SSL and dedicated IP. Redsys doesn't work with SNI (22/05/2016)"
@@ -146,75 +147,75 @@ msgstr ""
 "22/05/2016)."
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:268
+#: wc_redsys_payment_gateway.php:267
 msgid "Title"
 msgstr "Título"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:270
+#: wc_redsys_payment_gateway.php:269
 msgid "This controls the title which the user sees during checkout."
 msgstr ""
 "Esto controla el título que el usuario ve durante la finalización de la "
 "compra."
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:275
+#: wc_redsys_payment_gateway.php:274
 msgid "Description"
 msgstr "Descripción"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:277
+#: wc_redsys_payment_gateway.php:276
 msgid "This controls the description which the user sees during checkout."
 msgstr ""
 "Ésto controla la descripción que los usuarios verán durante la finalización "
 "de la compra."
 
-#: wc_redsys_payment_gateway.php:279
+#: wc_redsys_payment_gateway.php:278
 msgid "Payment gateway with Redsys credit card."
 msgstr "Pago con tarjeta mediante pasarela de pago (Redsys)"
 
-#: wc_redsys_payment_gateway.php:282
+#: wc_redsys_payment_gateway.php:281
 msgid "Allowed payment methods"
 msgstr "Métodos de pago aceptados"
 
-#: wc_redsys_payment_gateway.php:284
+#: wc_redsys_payment_gateway.php:283
 msgid "Allowed payment methods."
 msgstr "Métodos de pago aceptados."
 
-#: wc_redsys_payment_gateway.php:287
+#: wc_redsys_payment_gateway.php:286
 msgid "All"
 msgstr "Todos"
 
-#: wc_redsys_payment_gateway.php:288
+#: wc_redsys_payment_gateway.php:287
 msgid "Only credit card"
 msgstr "Sólo tarjeta"
 
-#: wc_redsys_payment_gateway.php:289
+#: wc_redsys_payment_gateway.php:288
 msgid "Credit card and Iupay"
 msgstr "Tarjeta y Iupay"
 
-#: wc_redsys_payment_gateway.php:294
+#: wc_redsys_payment_gateway.php:293
 msgid "Owner name"
 msgstr "Nombre del comercio"
 
-#: wc_redsys_payment_gateway.php:296
+#: wc_redsys_payment_gateway.php:295
 msgid "Name and surname of the owner."
 msgstr "Nombre y apellidos del propietario"
 
-#: wc_redsys_payment_gateway.php:301
+#: wc_redsys_payment_gateway.php:300
 msgid "Commerce name"
 msgstr "Nombre del comercio"
 
-#: wc_redsys_payment_gateway.php:303
+#: wc_redsys_payment_gateway.php:302
 msgid "The commerce name."
 msgstr "Nombre del comercio"
 
-#: wc_redsys_payment_gateway.php:308
+#: wc_redsys_payment_gateway.php:307
 msgid "Commerce number (FUC)"
 msgstr "Número de comercio (FUC)"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:310
+#: wc_redsys_payment_gateway.php:309
 msgid ""
 "Please enter your Redsys commerce number (FUC); this is needed in order to "
 "take payment."
@@ -222,12 +223,12 @@ msgstr ""
 "Por favor, introduzca su número de comercio (FUC) de redsys, esto es "
 "necesario con el fin de recibir el pago."
 
-#: wc_redsys_payment_gateway.php:315
+#: wc_redsys_payment_gateway.php:314
 msgid "Terminal number"
 msgstr "Número de terminal"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:317
+#: wc_redsys_payment_gateway.php:316
 msgid ""
 "Please enter your Redsys terminal number; this is needed in order to take "
 "payment."
@@ -235,12 +236,12 @@ msgstr ""
 "Por favor, introduzca su número de terminal de Redsys, esto es necesario con "
 "el fin de recibir el pago."
 
-#: wc_redsys_payment_gateway.php:322
+#: wc_redsys_payment_gateway.php:321
 msgid "Currency identifier"
 msgstr "Identificador de moneda"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:324
+#: wc_redsys_payment_gateway.php:323
 msgid ""
 "Please enter your Redsys currency identifier; this is needed in order to "
 "take payment."
@@ -248,31 +249,31 @@ msgstr ""
 "Por favor, introduzca el identificador de moneda de su terminal, esto es "
 "necesario con el fin de recibir el pago."
 
-#: wc_redsys_payment_gateway.php:346
+#: wc_redsys_payment_gateway.php:345
 msgid "Secret key (SHA-256)"
 msgstr "Clave secreta (SHA 256)"
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:348
+#: wc_redsys_payment_gateway.php:347
 msgid "Please enter your secret key; this is needed in order to take payment."
 msgstr ""
 "Por favor, introduzca la clave secreta del comercio; es necesario para "
 "recibir los pagos."
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:352
+#: wc_redsys_payment_gateway.php:351
 msgid "Enable languages"
 msgstr "Usar idioma del usuario en la pasarela de RedSYS"
 
-#: wc_redsys_payment_gateway.php:354
+#: wc_redsys_payment_gateway.php:353
 msgid "Shows TPV with customer's language."
 msgstr "Mostrar TPV con el idioma del cliente."
 
-#: wc_redsys_payment_gateway.php:359
+#: wc_redsys_payment_gateway.php:358
 msgid "Skip checkout form"
 msgstr "Omitir el formulario de finalizar compra"
 
-#: wc_redsys_payment_gateway.php:361
+#: wc_redsys_payment_gateway.php:360
 msgid ""
 "Skip the last form of the checkout process and redirect into the payment "
 "gateway (requires Javascript)."
@@ -280,91 +281,100 @@ msgstr ""
 "Omitir el último formulario del proceso de finalizar compra y redirigir a la "
 "pasarela de pago (requiere Javascript)."
 
-#: wc_redsys_payment_gateway.php:365
+#: wc_redsys_payment_gateway.php:364
+msgid "Set order as completed after payment?"
+msgstr "¿Marcar el pedido como completado tras el pago?"
+
+#: wc_redsys_payment_gateway.php:366
+msgid ""
+"After payment, should the order be set as completed? Default is \"processing"
+"\"."
+msgstr ""
+"Tras el pago, ¿deseas marcar el pedido como completado? El valor por defecto "
+"es \"procesando\"."
+
+#: wc_redsys_payment_gateway.php:369
+msgid "No"
+msgstr "No"
+
+#: wc_redsys_payment_gateway.php:370
+msgid "Yes"
+msgstr "Sí"
+
+#: wc_redsys_payment_gateway.php:375
 msgid "Gateway Testing"
 msgstr "Modo de pruebas"
 
-#: wc_redsys_payment_gateway.php:370
+#: wc_redsys_payment_gateway.php:380
 msgid "Debug Log"
 msgstr "Registro de depuración"
 
-#: wc_redsys_payment_gateway.php:372
+#: wc_redsys_payment_gateway.php:382
 msgid "Enable logging"
 msgstr "Activar registro"
 
-#: wc_redsys_payment_gateway.php:374
+#: wc_redsys_payment_gateway.php:384
+#, php-format
 msgid "Log Redsys events, inside %s"
 msgstr "Registrar eventos RedSYS en %s"
 
-#: wc_redsys_payment_gateway.php:412
+#: wc_redsys_payment_gateway.php:422
 msgid "Online order"
 msgstr "Compra online"
 
-#: wc_redsys_payment_gateway.php:560
+#: wc_redsys_payment_gateway.php:561
+msgid "Redirecting&hellip;"
+msgstr "Redirigiendo&hellip;"
+
+#: wc_redsys_payment_gateway.php:570
 msgid ""
 "Thank you for your order. You are being redirected to the payment gateway."
 msgstr "Gracias por su pedido. Está siendo redirigido a la pasarela de pago."
 
 # @ wc_redsys_payment_gateway
-#: wc_redsys_payment_gateway.php:592
+#: wc_redsys_payment_gateway.php:602
 msgid "Pay via Redsys"
 msgstr "Pagar mediante Redsys"
 
-#: wc_redsys_payment_gateway.php:593
+#: wc_redsys_payment_gateway.php:603
 msgid "Cancel order &amp; restore cart"
 msgstr "Cancelar el pedido"
 
-#: wc_redsys_payment_gateway.php:628
+#: wc_redsys_payment_gateway.php:638
 msgid ""
 "Thank you for your order, please click the button below to pay with Redsys."
 msgstr "Gracias por su pedido. Por favor, pulse sobre el botón para pagar."
 
-#: wc_redsys_payment_gateway.php:725
+#: wc_redsys_payment_gateway.php:735
+#, php-format
 msgid "Validation error: Redsys amounts do not match (amount %s)."
 msgstr "Error de validación: los importes no coinciden (total %s)."
 
-#: wc_redsys_payment_gateway.php:745
+#: wc_redsys_payment_gateway.php:755
 msgid "Redsys payment completed"
 msgstr "Pago completado"
 
-#: wc_redsys_payment_gateway.php:753 wc_redsys_payment_gateway.php:785
+#: wc_redsys_payment_gateway.php:768 wc_redsys_payment_gateway.php:800
+#, php-format
 msgid "Payment error: code: %s."
 msgstr "Error en el pago: código %s."
 
-#: wc_redsys_payment_gateway.php:779
+#: wc_redsys_payment_gateway.php:794
 msgid "Payment error: bank unavailable."
 msgstr "Error en el pago: banco no disponible."
 
-#: wc_redsys_payment_gateway.php:795
-msgid "Awaiting REDSYS payment"
-msgstr "Esperando pago con tarjeta"
-
-#: wc_redsys_payment_gateway.php:855
+#: wc_redsys_payment_gateway.php:870
 msgid "Mcrypt extension is not available in this server"
 msgstr "La extensión Mcrypt no está activada en este servidor"
 
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce Redsys payment gateway"
-msgstr "Pasarela de pago de Redsys para WooCommerce"
+#~ msgid "Awaiting REDSYS payment"
+#~ msgstr "Esperando pago con tarjeta"
 
-#. Plugin URI of the plugin/theme
-msgid "http://tel.abloque.com/sermepa_woocommerce.html"
-msgstr ""
+#~ msgid "WooCommerce Redsys payment gateway"
+#~ msgstr "Pasarela de pago de Redsys para WooCommerce"
 
-#. Description of the plugin/theme
-msgid "Redsys payment gateway for WooCommerce"
-msgstr "Pasarela de pago de Redsys para WooCommerce"
-
-#. Author of the plugin/theme
-msgid "Jesús Ángel del Pozo Domínguez"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://tel.abloque.com"
-msgstr ""
-
-#~ msgid "Redirecting&hellip;"
-#~ msgstr "Redirigiendo&hellip;"
+#~ msgid "Redsys payment gateway for WooCommerce"
+#~ msgstr "Pasarela de pago de Redsys para WooCommerce"
 
 #~ msgid ""
 #~ "Thank you for your order. We are now redirecting you to Redsys to make "

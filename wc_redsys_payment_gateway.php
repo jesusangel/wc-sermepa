@@ -19,7 +19,7 @@
  * Plugin Name: WooCommerce Redsys payment gateway
  * Plugin URI: http://tel.abloque.com/sermepa_woocommerce.html
  * Description: Redsys payment gateway for WooCommerce
- * Version: 1.2.2
+ * Version: 1.2.3
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
@@ -118,6 +118,7 @@
 				$this->secret_key		= $this->settings['secret_key'];
 				$this->payment_method	= $this->settings['payment_method'];
 				$this->language			= $this->settings['language'];
+				$this->set_completed	= $this->settings['set_completed'];
 				$this->debug			= $this->settings['debug'];
 
 				switch ( $this->protocol ) {
@@ -359,6 +360,17 @@
 						'description' => __( 'Skip the last form of the checkout process and redirect into the payment gateway (requires Javascript).', 'wc_redsys_payment_gateway' ),
 						'default' => 'yes'
                     ),
+	    			'set_completed' => array(
+	    					'title'       => __( 'Set order as completed after payment?', 'wc_redsys_payment_gateway' ),
+	    					'type'        => 'select',
+	    					'description' => __( 'After payment, should the order be set as completed? Default is "processing".', 'wc_redsys_payment_gateway' ),
+	    					'desc_tip'    => false,
+	    					'options'     => array(
+	    							' ' => __( 'No', 'wc_redsys_payment_gateway' ),
+	    							'Y' => __( 'Yes', 'wc_redsys_payment_gateway' ),
+	    					),
+	    					'default'     => ' '
+	    			),
 					'testing' => array(
 						'title' => __( 'Gateway Testing', 'wc_redsys_payment_gateway' ),
 						'type' => 'title',
@@ -742,6 +754,11 @@
 					            	// Payment completed
 					                $order->add_order_note( __('Redsys payment completed', 'wc_redsys_payment_gateway') );
 					                $order->payment_complete();
+					                
+					                // Set order as completed if user did set up it
+					                if ( 'Y' == $this->set_completed ) {
+					                	$order->update_status( 'completed' );
+					                }
 				
 					                if ( 'yes' == $this->debug ) {
 					                	$this->log->add( 'redsys', 'Payment complete.' );
