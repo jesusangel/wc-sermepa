@@ -478,7 +478,7 @@
 			
 				// TPV data
 				$tpv_data = array(
-					'DS_MERCHANT_AMOUNT'             => $importe,							// 12 / num
+					'DS_MERCHANT_AMOUNT'             => (string)$importe,							// 12 / num
 					'DS_MERCHANT_ORDER'              => $unique_order_id,					// 12 / num{4}char{8}
 					'DS_MERCHANT_MERCHANTCODE'       => $this->commerce_number,				// FUC code 9 / num
 					'DS_MERCHANT_CURRENCY'           => $this->currency_id,					// 4 / num
