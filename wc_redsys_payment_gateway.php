@@ -34,11 +34,15 @@
 	add_action( 'admin_notices', 'wc_myredsys_payment_gateway_admin_notice_mcrypt' );
 	function wc_myredsys_payment_gateway_admin_notice_mcrypt() {
 	
-		if (! function_exists( 'mcrypt_encrypt' ) ) {
+		if (! function_exists( 'mcrypt_encrypt' ) && version_compare(phpversion(), '7.1', '<') ) {
 			$class = "error";
 			$message = sprintf ( __ ( 'Mcrypt extension is missing. Please, ask your hosting provider to enable it.', 'wc_redsys_payment_gateway' ), '?ignore_redsys_sha256_notice=0' );
 			echo "<div class=\"$class\"> <p>$message</p></div>";
-		}
+		}elseif (! function_exists( 'openssl_encrypt' ) && version_compare(phpversion(), '7.1', '>=') ) {
+            $class = "error";
+            $message = sprintf ( __ ( 'php_openssl extension is missing. Please, ask your hosting provider to enable it.', 'wc_redsys_payment_gateway' ), '?ignore_redsys_sha256_notice=0' );
+            echo "<div class=\"$class\"> <p>$message</p></div>";
+        }
 	}
 	
 	add_action( 'admin_notices', 'wc_myredsys_payment_gateway_admin_notice' );
@@ -861,17 +865,39 @@
 			function mac256( $b64_data, $key ){
 				return hash_hmac('sha256', $b64_data, $key, true);
 			}
-			
+
+            /**
+             *
+             * @link https://github.com/eusonlito/redsys-TPV/issues/14
+             *
+             * @param $message
+             * @param $key
+             * @return bool|null|string
+             *
+             *
+             * @throws Exception
+             */
 			function encrypt_3DES( $message, $key ) {
-				$bytes = array(0,0,0,0,0,0,0,0); //byte [] IV = {0, 0, 0, 0, 0, 0, 0, 0}
-				$iv = implode(array_map("chr", $bytes));
-			
-				if ( function_exists( 'mcrypt_encrypt' ) ) {
+                $ciphertext = null;
+
+				if ( function_exists( 'mcrypt_encrypt' ) && version_compare(phpversion(), '7.1', '<')  ) {
+
+                    $bytes = array(0,0,0,0,0,0,0,0); //byte [] IV = {0, 0, 0, 0, 0, 0, 0, 0}
+                    $iv = implode(array_map("chr", $bytes));
 					$ciphertext = mcrypt_encrypt(MCRYPT_3DES, $key, $message, MCRYPT_MODE_CBC, $iv);
-				} else {
+
+				} elseif(function_exists( 'openssl_encrypt' ) && version_compare(phpversion(), '7.1', '>=') ) {
+                    $l = ceil(strlen($message) / 8) * 8;
+                    $ciphertext = substr(openssl_encrypt($message . str_repeat("\0", $l - strlen($message)), 'des-ede3-cbc', $key, OPENSSL_RAW_DATA, "\0\0\0\0\0\0\0\0"), 0, $l);
+
+                }elseif( !function_exists( 'openssl_encrypt' ) && version_compare( phpversion(), '7.1', '>=') ){
+
+                    throw new Exception( __( 'php_openssl extension is not available in this server', 'wc_redsys_payment_gateway' ) );
+                }elseif (!function_exists( 'mcrypt_encrypt' ) && version_compare( phpversion(), '7.1', '<')) {
+
 					throw new Exception( __( 'Mcrypt extension is not available in this server', 'wc_redsys_payment_gateway' ) );
 				}
-				
+
 				return $ciphertext;
 			}
 			
