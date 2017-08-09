@@ -19,7 +19,7 @@
  * Plugin Name: WooCommerce Redsys payment gateway
  * Plugin URI: http://tel.abloque.com/sermepa_woocommerce.html
  * Description: Redsys payment gateway for WooCommerce
- * Version: 1.2.4
+ * Version: 1.2.5
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
@@ -38,10 +38,10 @@
 			$class = "error";
 			$message = sprintf ( __ ( 'Mcrypt extension is missing. Please, ask your hosting provider to enable it.', 'wc_redsys_payment_gateway' ), '?ignore_redsys_sha256_notice=0' );
 			echo "<div class=\"$class\"> <p>$message</p></div>";
-		}elseif (! function_exists( 'openssl_encrypt' ) && version_compare(phpversion(), '7.1', '>=') ) {
-            $class = "error";
-            $message = sprintf ( __ ( 'php_openssl extension is missing. Please, ask your hosting provider to enable it.', 'wc_redsys_payment_gateway' ), '?ignore_redsys_sha256_notice=0' );
-            echo "<div class=\"$class\"> <p>$message</p></div>";
+		} else if ( !function_exists( 'openssl_encrypt' ) && version_compare(phpversion(), '7.1', '>=' ) ) {
+			$class = "error";
+			$message = sprintf ( __ ( 'php_openssl extension is missing. Please, ask your hosting provider to enable it.', 'wc_redsys_payment_gateway' ), '?ignore_redsys_sha256_notice=0' );
+			echo "<div class=\"$class\"> <p>$message</p></div>";
         }
 	}
 	
@@ -482,7 +482,7 @@
 			
 				// TPV data
 				$tpv_data = array(
-					'DS_MERCHANT_AMOUNT'             => (string)$importe,							// 12 / num
+					'DS_MERCHANT_AMOUNT'             => (string)$importe,					// 12 / num
 					'DS_MERCHANT_ORDER'              => $unique_order_id,					// 12 / num{4}char{8}
 					'DS_MERCHANT_MERCHANTCODE'       => $this->commerce_number,				// FUC code 9 / num
 					'DS_MERCHANT_CURRENCY'           => $this->currency_id,					// 4 / num
@@ -886,14 +886,15 @@
                     $iv = implode(array_map("chr", $bytes));
 					$ciphertext = mcrypt_encrypt(MCRYPT_3DES, $key, $message, MCRYPT_MODE_CBC, $iv);
 
-				} elseif(function_exists( 'openssl_encrypt' ) && version_compare(phpversion(), '7.1', '>=') ) {
-                    $l = ceil(strlen($message) / 8) * 8;
-                    $ciphertext = substr(openssl_encrypt($message . str_repeat("\0", $l - strlen($message)), 'des-ede3-cbc', $key, OPENSSL_RAW_DATA, "\0\0\0\0\0\0\0\0"), 0, $l);
+				} else if ( function_exists( 'openssl_encrypt' ) && version_compare( phpversion(), '7.1', '>=' ) ) {
 
-                }elseif( !function_exists( 'openssl_encrypt' ) && version_compare( phpversion(), '7.1', '>=') ){
+					$l = ceil(strlen($message) / 8) * 8;
+					$ciphertext = substr(openssl_encrypt($message . str_repeat("\0", $l - strlen($message)), 'des-ede3-cbc', $key, OPENSSL_RAW_DATA, "\0\0\0\0\0\0\0\0"), 0, $l);
 
-                    throw new Exception( __( 'php_openssl extension is not available in this server', 'wc_redsys_payment_gateway' ) );
-                }elseif (!function_exists( 'mcrypt_encrypt' ) && version_compare( phpversion(), '7.1', '<')) {
+                } else if ( !function_exists( 'openssl_encrypt' ) && version_compare( phpversion(), '7.1', '>=' ) ) {
+
+					throw new Exception( __( 'php_openssl extension is not available in this server', 'wc_redsys_payment_gateway' ) );
+                } else if ( !function_exists( 'mcrypt_encrypt' ) && version_compare( phpversion(), '7.1', '<' ) ) {
 
 					throw new Exception( __( 'Mcrypt extension is not available in this server', 'wc_redsys_payment_gateway' ) );
 				}
