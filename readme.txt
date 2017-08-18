@@ -1,5 +1,5 @@
 === WooCommerce Sermepa payment gateway ===
-Contributors: jesusangel
+Contributors: jesusangel,jramoscarmenates
 Tags: ecommerce, e-commerce, commerce, wordpress woocommerce, payment, plugin, gateway, servired, sermepa, redsys
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jesusangel.delpozo@gmail.com&item_name=Donation+for+WC-Sermepa
 Requires at least: 3.3
