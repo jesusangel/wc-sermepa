@@ -8,7 +8,7 @@ Stable tag: 1.2.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-WooCommerce redsys payment gateway is a payment gateway for WooCommerce.
+WooCommerce Redsys payment gateway is a payment gateway for WooCommerce.
 
 == Description ==
 
@@ -56,7 +56,7 @@ If on the off chance you do encounter issues with the shop/category pages after 
 
 Yes. Since stable tag 4, the plugin works on both WooCommerce 1.6 and 2.x versions. 
 
-= Where can I find WC-Sermepa documentation and user guides =
+= Where can I find plugin documentation and user guides =
 
 http://wordpress.org/support/plugin/woocommerce-sermepa-payment-gateway
 
@@ -68,7 +68,7 @@ http://wordpress.org/support/plugin/woocommerce-sermepa-payment-gateway
 
 Bugs can be reported on the [WC-Sermepa GitHub repository](https://github.com/jesusangel/wc-sermepa/issues).
 
-= WC-Sermepa is awesome! Can I contribute? =
+= This plugin is awesome! Can I contribute? =
 
 Yes you can! Join in on our [GitHub repository](http://github.com/jesusangel/wc-sermepa/) :)
 

@@ -1,4 +1,4 @@
-Sermepa payment gateway plugin for WooCommerce
+Redsys payment gateway plugin for WooCommerce
 
 Copyright 2012 by Jesús Ángel del Pozo
 

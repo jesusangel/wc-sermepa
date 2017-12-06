@@ -25,7 +25,7 @@
  * License: GPL3
  *
  * Text Domain: wc_redsys_payment_gateway
- * Domain Path: /languages/
+ * Domain Path: /languages
  *
  */
 
