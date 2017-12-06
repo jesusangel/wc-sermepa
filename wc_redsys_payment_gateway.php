@@ -19,7 +19,7 @@
  * Plugin Name: WooCommerce Redsys payment gateway
  * Plugin URI: http://tel.abloque.com/sermepa_woocommerce.html
  * Description: Redsys payment gateway for WooCommerce
- * Version: 1.2.5
+ * Version: 1.2.6
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
@@ -370,22 +370,22 @@
 	    					'description' => __( 'After payment, should the order be set as completed? Default is "processing".', 'wc_redsys_payment_gateway' ),
 	    					'desc_tip'    => false,
 	    					'options'     => array(
-	    							' ' => __( 'No', 'wc_redsys_payment_gateway' ),
+	    							'N' => __( 'No', 'wc_redsys_payment_gateway' ),
 	    							'Y' => __( 'Yes', 'wc_redsys_payment_gateway' ),
 	    					),
-	    					'default'     => ' '
+	    					'default'     => 'N'
 	    			),
 					'testing' => array(
 						'title' => __( 'Gateway Testing', 'wc_redsys_payment_gateway' ),
 						'type' => 'title',
-						'description' => '',
+						'description' => ''
 					),
 					'debug' => array(
 						'title' => __( 'Debug Log', 'wc_redsys_payment_gateway' ),
 						'type' => 'checkbox',
 						'label' => __( 'Enable logging', 'wc_redsys_payment_gateway' ),
-						'default' => 'no',
 						'description' => sprintf( __( 'Log Redsys events, inside %s', 'wc_redsys_payment_gateway' ), wc_get_log_file_path( 'redsys' ) ),
+						'default' => 'no'
 					)
 				);
 		
