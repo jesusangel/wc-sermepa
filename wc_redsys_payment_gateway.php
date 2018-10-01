@@ -19,7 +19,7 @@
  * Plugin Name: WooCommerce Redsys payment gateway
  * Plugin URI: http://tel.abloque.com/sermepa_woocommerce.html
  * Description: Redsys payment gateway for WooCommerce
- * Version: 1.2.9
+ * Version: 1.2.10
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
@@ -130,7 +130,7 @@
 				// Define user set variables
 				$this->title			= $this->settings['title'];
 				$this->description		= $this->settings['description'];
-				$this->owner_name		= $this->settings['owner_name'];
+				//$this->owner_name		= $this->settings['owner_name'];
 				$this->commerce_name	= $this->settings['commerce_name'];
 				$this->mode				= $this->settings['mode'];
 				$this->protocol			= $this->settings['protocol'];
@@ -311,6 +311,7 @@
     					),
 	    				'default'     => 'T'
 	    			),
+/*
 					'owner_name' => array(
 						'title' => __( 'Owner name', 'wc_redsys_payment_gateway' ),
 						'type' => 'text',
@@ -318,6 +319,7 @@
 						'desc_tip'    => true,
 						'default' => __( 'Redsys', 'wc_redsys_payment_gateway' )
 					),
+*/
 					'commerce_name' => array(
 						'title' => __( 'Commerce name', 'wc_redsys_payment_gateway' ),
 						'type' => 'text',
@@ -508,7 +510,7 @@
 					'DS_MERCHANT_URLKO'              => $order->get_cancel_order_url(),
 					'Ds_Merchant_ConsumerLanguage'   => $language,
 					'Ds_Merchant_ProductDescription' => $products,
-					'Ds_Merchant_Titular'            => $this->owner_name,					// Nombre y apellidos del titular
+					//'Ds_Merchant_Titular'            => $this->owner_name,					// Nombre y apellidos del titular
 					'Ds_Merchant_MerchantData'       => sha1( $this->notify_url ),
 					'Ds_Merchant_MerchantName'       => $this->commerce_name,				// Optional, commerce name
 					'Ds_Merchant_PayMethods'         => $this->payment_method,				// T = credit card and iUpay, C = only credit card

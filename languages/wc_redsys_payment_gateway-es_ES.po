@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WC-Redsys_payment_gateway v0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-sermepa\n"
 "POT-Creation-Date: 2017-06-27 18:41+0100\n"
-"PO-Revision-Date: 2017-06-27 18:42+0100\n"
+"PO-Revision-Date: 2018-10-01 21:39+0100\n"
 "Last-Translator: Jesús Ángel del Pozo <jesusangel.delpozo@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -196,7 +196,7 @@ msgstr "Tarjeta y Iupay"
 
 #: wc_redsys_payment_gateway.php:293
 msgid "Owner name"
-msgstr "Nombre del comercio"
+msgstr "Propietario del comercio"
 
 #: wc_redsys_payment_gateway.php:295
 msgid "Name and surname of the owner."
