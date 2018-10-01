@@ -19,7 +19,7 @@
  * Plugin Name: WooCommerce Redsys payment gateway
  * Plugin URI: http://tel.abloque.com/sermepa_woocommerce.html
  * Description: Redsys payment gateway for WooCommerce
- * Version: 1.2.7
+ * Version: 1.2.8
  * Author: Jesús Ángel del Pozo Domínguez
  * Author URI: http://tel.abloque.com
  * License: GPL3
@@ -377,6 +377,19 @@
 	    					),
 	    					'default'     => 'N'
 	    			),
+					'marketing' => array(
+						'title' => __( 'Track marketing campaings', 'wc_redsys_payment_gateway' ),
+						'type' => 'title',
+						'description' => __( 'Add code for tracking marketing campaings. Currently only Facebook, ask for others (requires javascript)', 'wc_redsys_payment_gateway' )
+					),
+					'track_fbq_purchase' => array(
+						'title' => __( 'Facebook', 'wc_redsys_payment_gateway' ),
+						'label' => __( 'Track Facebook purchase event with Facebook\'s pixel', 'wc_redsys_payment_gateway' ),
+						'type' => 'checkbox',
+						'description' => __( 'Tracks purchase event with Facebook pixel.', 'wc_redsys_payment_gateway' ),
+						'desc_tip'    => true,
+						'default' => 'no'
+					),
 					'testing' => array(
 						'title' => __( 'Gateway Testing', 'wc_redsys_payment_gateway' ),
 						'type' => 'title',
@@ -562,7 +575,27 @@
 				foreach ($redsys_args as $key => $value) {
 					$redsys_fields_array[] = '<input type="hidden" name="'.esc_attr( $key ).'" value="'.esc_attr( $value ).'" />';
 				}
-                
+
+				/*
+				 * Track marketing campaings (Facebook pixel, etc.)
+				 */
+				if ( 'yes' == $this->settings['track_fbq_purchase'] ) {
+					$script = '
+						jQuery(document).ready(function() {
+							jQuery("#redsys_payment_form").submit( function() {
+								if ( typeof fbq ===  "function" ) {
+									fbq("track", "Purchase", {value: "'.$order->get_total().'", currency: "'.$this->currencies[$this->currency_id].'"});
+								}
+							} );
+						})
+					';
+					if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '<' ) ) {
+						$woocommerce->add_inline_js( $script );
+					} else {
+						wc_enqueue_js( $script );
+					}
+				}
+					
                 if ( empty( $this->settings['skip_checkout_form'] ) || $this->settings['skip_checkout_form'] != 'no' ) {
                     
                     if ( version_compare( WOOCOMMERCE_VERSION, '2.2.3', '<' ) ) {
@@ -604,6 +637,7 @@
                     }
                 
                 }
+
 		
 				return '<form action="' . esc_url( $redsys_addr ) . '" method="post" id="redsys_payment_form" target="_top">
 						' . implode( '', $redsys_fields_array ) . '
