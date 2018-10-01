@@ -4,7 +4,7 @@ Tags: redsys, payment, woocommerce, pago, pasarela
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jesusangel.delpozo@gmail.com&item_name=Donation+for+WC-Sermepa
 Requires at least: 3.3
 Tested up to: 4.9.1
-Stable tag: 1.2.8
+Stable tag: 1.2.9
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -79,6 +79,9 @@ Yes you can! Join in on our [GitHub repository](http://github.com/jesusangel/wc-
 3. WooCommerce sales reports
 
 == Changelog ==
+
+= 1.2.9 - 01/10/2018 =
+* Access order status through method instead of property.
 
 = 1.2.8 - 01/10/2018 =
 * Added Facebook pixel track option.
