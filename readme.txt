@@ -4,7 +4,7 @@ Tags: redsys, payment, woocommerce, pago, pasarela
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jesusangel.delpozo@gmail.com&item_name=Donation+for+WC-Sermepa
 Requires at least: 3.3
 Tested up to: 4.9.1
-Stable tag: 1.2.6
+Stable tag: 1.2.7
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -79,6 +79,9 @@ Yes you can! Join in on our [GitHub repository](http://github.com/jesusangel/wc-
 3. WooCommerce sales reports
 
 == Changelog ==
+
+= 1.2.7 - 01/10/2018 =
+* Move currencies array to a property variable.
 
 = 1.2.6 - 06/12/2017 =
 * Fix default value for set_completed option
